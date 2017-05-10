@@ -13,6 +13,7 @@
 		93E462781EBB568700DD947E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93E462771EBB568700DD947E /* Assets.xcassets */; };
 		93E4627B1EBB568700DD947E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E462791EBB568700DD947E /* LaunchScreen.storyboard */; };
 		93E462861EBB568700DD947E /* RSSClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E462851EBB568700DD947E /* RSSClientTests.swift */; };
+		93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B131EC31A7700635BCC /* DownloadDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		93E462811EBB568700DD947E /* RSSClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E462851EBB568700DD947E /* RSSClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSClientTests.swift; sourceTree = "<group>"; };
 		93E462871EBB568700DD947E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93EE2B131EC31A7700635BCC /* DownloadDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +79,10 @@
 		93E4626F1EBB568700DD947E /* RSSClient */ = {
 			isa = PBXGroup;
 			children = (
-				93E462701EBB568700DD947E /* AppDelegate.swift */,
+				93E462901EBB56E000DD947E /* Support Files */,
 				93E462721EBB568700DD947E /* ViewController.swift */,
 				93E462741EBB568700DD947E /* Main.storyboard */,
-				93E462771EBB568700DD947E /* Assets.xcassets */,
-				93E462791EBB568700DD947E /* LaunchScreen.storyboard */,
-				93E4627C1EBB568700DD947E /* Info.plist */,
+				93EE2B131EC31A7700635BCC /* DownloadDataService.swift */,
 			);
 			path = RSSClient;
 			sourceTree = "<group>";
@@ -94,6 +94,17 @@
 				93E462871EBB568700DD947E /* Info.plist */,
 			);
 			path = RSSClientTests;
+			sourceTree = "<group>";
+		};
+		93E462901EBB56E000DD947E /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				93E462701EBB568700DD947E /* AppDelegate.swift */,
+				93E462771EBB568700DD947E /* Assets.xcassets */,
+				93E462791EBB568700DD947E /* LaunchScreen.storyboard */,
+				93E4627C1EBB568700DD947E /* Info.plist */,
+			);
+			name = "Support Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93E462731EBB568700DD947E /* ViewController.swift in Sources */,
+				93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */,
 				93E462711EBB568700DD947E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,6 +420,7 @@
 				93E4628C1EBB568700DD947E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93E4628D1EBB568700DD947E /* Build configuration list for PBXNativeTarget "RSSClientTests" */ = {
 			isa = XCConfigurationList;
@@ -416,6 +429,7 @@
 				93E4628F1EBB568700DD947E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
