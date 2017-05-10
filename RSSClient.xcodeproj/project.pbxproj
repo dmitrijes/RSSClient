@@ -14,6 +14,8 @@
 		93E4627B1EBB568700DD947E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93E462791EBB568700DD947E /* LaunchScreen.storyboard */; };
 		93E462861EBB568700DD947E /* RSSClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E462851EBB568700DD947E /* RSSClientTests.swift */; };
 		93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B131EC31A7700635BCC /* DownloadDataService.swift */; };
+		93EE2B161EC3379400635BCC /* DataParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B151EC3379400635BCC /* DataParse.swift */; };
+		93EE2B181EC33D3300635BCC /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B171EC33D3300635BCC /* Posts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		93E462851EBB568700DD947E /* RSSClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSClientTests.swift; sourceTree = "<group>"; };
 		93E462871EBB568700DD947E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93EE2B131EC31A7700635BCC /* DownloadDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadDataService.swift; sourceTree = "<group>"; };
+		93EE2B151EC3379400635BCC /* DataParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParse.swift; sourceTree = "<group>"; };
+		93EE2B171EC33D3300635BCC /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,8 @@
 				93E462721EBB568700DD947E /* ViewController.swift */,
 				93E462741EBB568700DD947E /* Main.storyboard */,
 				93EE2B131EC31A7700635BCC /* DownloadDataService.swift */,
+				93EE2B151EC3379400635BCC /* DataParse.swift */,
+				93EE2B171EC33D3300635BCC /* Posts.swift */,
 			);
 			path = RSSClient;
 			sourceTree = "<group>";
@@ -212,7 +218,9 @@
 			files = (
 				93E462731EBB568700DD947E /* ViewController.swift in Sources */,
 				93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */,
+				93EE2B181EC33D3300635BCC /* Posts.swift in Sources */,
 				93E462711EBB568700DD947E /* AppDelegate.swift in Sources */,
+				93EE2B161EC3379400635BCC /* DataParse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
