@@ -17,6 +17,8 @@ class DataParse: NSObject, XMLParserDelegate {
     var posts : [Posts] = []
     var post : Posts!
     var foundCharacters = ""
+    var regular = RegularPostChange()
+    var result : [String]!
     
     func parsingDataStart(_ data: Data) {
         parser = XMLParser(data: data)
@@ -37,7 +39,9 @@ class DataParse: NSObject, XMLParserDelegate {
             case "title": post.postTitle = foundCharacters
             case "pubDate": post.postDate = foundCharacters
             case "description":
-                post.postDescrip = foundCharacters
+                result = regular.changeText(text: foundCharacters)
+                post.postDescrip = result[0]
+                post.postImage = result[1]
                 posts.append(post)
             case "channel": printPosts()
             default: break
@@ -64,8 +68,12 @@ class DataParse: NSObject, XMLParserDelegate {
             print("-----")
             print(i.postTitle ?? "none")
             print(i.postDate ?? "none")
+            print(i.postImage ?? "none")
             print(i.postDescrip ?? "none")
             print("-----")
         }
     }
 }
+
+
+
