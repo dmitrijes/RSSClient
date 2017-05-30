@@ -11,7 +11,7 @@ import Foundation
 
 class DownloadDataService {
     
-    func downloadData(url: String, complition: @escaping (Data?, Any?, Error?) -> Void) {
+    func downloadData(url: String, complition: @escaping (Data?, URLResponse?, Error?) -> Void) {
         let queue = DispatchQueue.global(qos: .userInteractive)
         queue.async {
             guard let newUrl = URL(string: url) else {

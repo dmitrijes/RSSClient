@@ -10,8 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let downloadData = DownloadDataService()
     let url = "http://feeds.macrumors.com/MacRumors-All"
+    let downloadData = DownloadDataService()
+    let parseData = DataParse()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +22,25 @@ class ViewController: UIViewController {
                 print(error)
                 return
             }
-            guard let newdata = data else {
+            guard let neWdata = data else {
                 print("Can't get data")
                 return
             }
-            print(newdata)
+            self.parseData.parsingDataStart(neWdata, complition: { (data, response, error) in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                if let response = response {
+                    print(response)
+                    return
+                }
+                guard let resultData = data else {
+                    print("Can't change data")
+                    return
+                }
+                
+            })
         }
     }
 

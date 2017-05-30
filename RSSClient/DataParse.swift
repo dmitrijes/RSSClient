@@ -20,7 +20,7 @@ class DataParse: NSObject, XMLParserDelegate {
     var regular = RegularPostChange()
     var result : [String]!
     
-    func parsingDataStart(_ data: Data) {
+    func parsingDataStart(_ data: Data, complition: (Data?, URLResponse?, Error?) -> Void) {
         parser = XMLParser(data: data)
         parser.delegate = self
         parser.parse()
