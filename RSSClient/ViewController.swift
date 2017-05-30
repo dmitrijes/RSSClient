@@ -39,7 +39,6 @@ class ViewController: UIViewController {
                     print("Can't change data")
                     return
                 }
-                
             })
         }
     }

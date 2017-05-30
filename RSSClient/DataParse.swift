@@ -20,10 +20,12 @@ class DataParse: NSObject, XMLParserDelegate {
     var regular = RegularPostChange()
     var result : [String]!
     
-    func parsingDataStart(_ data: Data, complition: (Data?, URLResponse?, Error?) -> Void) {
+    func parsingDataStart(_ data: Data, complition: ([Posts]?, URLResponse?, Error?) -> Void) {
         parser = XMLParser(data: data)
         parser.delegate = self
         parser.parse()
+        complition(posts, nil, nil)
+        return
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -43,7 +45,8 @@ class DataParse: NSObject, XMLParserDelegate {
                 post.postDescrip = result[0]
                 post.postImage = result[1]
                 posts.append(post)
-            case "channel": printPosts()
+            //case "channel":
+                
             default: break
             }
         }
@@ -61,16 +64,6 @@ class DataParse: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
          print("failure error: ", parseError)
-    }
-    func printPosts() {
-        for i in posts {
-            print("-----")
-            print(i.postTitle ?? "none")
-            print(i.postDate ?? "none")
-            print(i.postImage ?? "none")
-            print(i.postDescrip ?? "none")
-            print("-----")
-        }
     }
 }
 
