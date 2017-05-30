@@ -11,14 +11,10 @@ import Foundation
 
 class DownloadDataService {
     
-    let url = "http://feeds.macrumors.com/MacRumors-All"
-    let dataParse = DataParse()
-    
-    
-    func downloadData() {
+    func downloadData(url: String, complition: @escaping (Data?, Any?, Error?) -> Void) {
         let queue = DispatchQueue.global(qos: .userInteractive)
         queue.async {
-            guard let newUrl = URL(string: self.url) else {
+            guard let newUrl = URL(string: url) else {
                 print("Can't URL")
                 return
             }
@@ -29,13 +25,14 @@ class DownloadDataService {
             
             let task = session.dataTask(with: urlReq) { (data, response, error) in
                 guard let newData = data else {
-                    print("DATA DOES EXIST")
+                    complition(nil, nil, error)
                     return
                 }
-                self.dataParse.parsingDataStart(newData)
-                
+                complition(newData, nil, nil)
+                return
             }
             task.resume()
+            
         }
     }
     

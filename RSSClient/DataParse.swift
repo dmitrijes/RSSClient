@@ -63,7 +63,6 @@ class DataParse: NSObject, XMLParserDelegate {
          print("failure error: ", parseError)
     }
     func printPosts() {
-        print(posts.count)
         for i in posts {
             print("-----")
             print(i.postTitle ?? "none")
