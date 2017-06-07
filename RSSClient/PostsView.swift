@@ -8,34 +8,32 @@
 
 import UIKit
 
+
+
 class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
 
     @IBOutlet weak var tableForDisplayData: UITableView!
     
-    var main = ViewController()
+    @IBOutlet weak var dataSource : PostViewDataSource
     
-    //var dataSource : PostViewDataSource?
     
     //MARK -> Data
-    
-    
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return main.getCount 
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath)
         
-        let post = main.getPost(indexPath.row)
+        //let post = dataSource.getPost(indexPath.row)
         
-        cell.textLabel?.text = post.postTitle
+        //cell.textLabel?.text = post.postTitle
         
         return cell
     }
@@ -46,6 +44,10 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
     
 }
 
+protocol PostViewDataSource {
+    var count: Int { get }
+    
+}
 
 protocol TableViewDataReload {
     func reloadTable()

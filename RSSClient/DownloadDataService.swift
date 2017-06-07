@@ -11,14 +11,12 @@ import Foundation
 
 class DownloadDataService {
     
-    func downloadData(url: String, complition: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let queue = DispatchQueue.global(qos: .userInteractive)
-        queue.async {
-            guard let newUrl = URL(string: url) else {
-                print("Can't URL")
-                return
-            }
-            let urlReq = URLRequest(url: newUrl)
+    let parseData = DataParse()
+    
+    func downloadData(url: String, complition: @escaping ([Posts]?, URLResponse?, Error?) -> Void) {
+        
+            let newUrl = URL(string: url)               
+            let urlReq = URLRequest(url: newUrl!)
             
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
@@ -27,13 +25,23 @@ class DownloadDataService {
                 guard let newData = data else {
                     complition(nil, nil, error)
                     return
-                }
-                complition(newData, nil, nil)
-                return
+                    }
+                    self.parseData.parsingDataStart(newData, complition: { (dataParse, _, error) in
+                        if let error = error {
+                            print(error)
+                            return
+                        }
+                        guard let resultData = dataParse else {
+                            print("Can't parse data")
+                            return
+                        }
+                        complition(resultData, nil, nil)
+                        return
+                    })
             }
             task.resume()
             
         }
     }
-    
-}
+
+
