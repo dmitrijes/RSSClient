@@ -17,6 +17,7 @@
 		93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B131EC31A7700635BCC /* DownloadDataService.swift */; };
 		93EE2B161EC3379400635BCC /* DataParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B151EC3379400635BCC /* DataParse.swift */; };
 		93EE2B181EC33D3300635BCC /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B171EC33D3300635BCC /* Posts.swift */; };
+		93F92A551EE6C18300E5D320 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F92A541EE6C18300E5D320 /* PostsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		93EE2B131EC31A7700635BCC /* DownloadDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadDataService.swift; sourceTree = "<group>"; };
 		93EE2B151EC3379400635BCC /* DataParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParse.swift; sourceTree = "<group>"; };
 		93EE2B171EC33D3300635BCC /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		93F92A541EE6C18300E5D320 /* PostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,12 +88,11 @@
 			isa = PBXGroup;
 			children = (
 				93E462901EBB56E000DD947E /* Support Files */,
+				93F92A561EE6C1A200E5D320 /* Download Data */,
 				93E462721EBB568700DD947E /* ViewController.swift */,
 				93E462741EBB568700DD947E /* Main.storyboard */,
-				93EE2B131EC31A7700635BCC /* DownloadDataService.swift */,
-				93EE2B151EC3379400635BCC /* DataParse.swift */,
 				93EE2B171EC33D3300635BCC /* Posts.swift */,
-				93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */,
+				93F92A591EE6C60600E5D320 /* View */,
 			);
 			path = RSSClient;
 			sourceTree = "<group>";
@@ -114,6 +115,24 @@
 				93E4627C1EBB568700DD947E /* Info.plist */,
 			);
 			name = "Support Files";
+			sourceTree = "<group>";
+		};
+		93F92A561EE6C1A200E5D320 /* Download Data */ = {
+			isa = PBXGroup;
+			children = (
+				93EE2B131EC31A7700635BCC /* DownloadDataService.swift */,
+				93EE2B151EC3379400635BCC /* DataParse.swift */,
+				93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */,
+			);
+			name = "Download Data";
+			sourceTree = "<group>";
+		};
+		93F92A591EE6C60600E5D320 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				93F92A541EE6C18300E5D320 /* PostsView.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93F92A551EE6C18300E5D320 /* PostsView.swift in Sources */,
 				93E462731EBB568700DD947E /* ViewController.swift in Sources */,
 				93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */,
 				93EE2B181EC33D3300635BCC /* Posts.swift in Sources */,

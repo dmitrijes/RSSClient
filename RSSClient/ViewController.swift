@@ -14,6 +14,13 @@ class ViewController: UIViewController {
     let downloadData = DownloadDataService()
     let parseData = DataParse()
     
+    var Data : [Posts]!
+    
+    var delegate : PostsView {
+        return view as! PostsView
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,11 +46,24 @@ class ViewController: UIViewController {
                     print("Can't change data")
                     return
                 }
+                self.Data = resultData
             })
+            
         }
+        self.delegate.reloadTable()
+        //self.tableView.reloadTable()
     }
+}
 
 
 
+extension ViewController {
+    var getCount: Int {
+        return Data?.count ?? 0
+    }
+    
+    func getPost(_ numberOfPost: Int) -> Posts {
+        return Data![numberOfPost]
+    }
 }
 
