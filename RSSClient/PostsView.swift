@@ -14,7 +14,7 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
 
     @IBOutlet weak var tableForDisplayData: UITableView!
     
-    @IBOutlet weak var dataSource : PostViewDataSource
+    @IBOutlet weak var dataSource : PostViewController!
     
     
     //MARK -> Data
@@ -29,11 +29,16 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostViewCell
         
-        //let post = dataSource.getPost(indexPath.row)
+        cell.postTitle.text = dataSource.getTitle(number: indexPath.row)
+        cell.postDate.text = dataSource.getDate(number: indexPath.row)
+        cell.postDescrip.text = dataSource.getDescrip(number: indexPath.row)
+        let url = dataSource.getImage(number: indexPath.row)
+        if let imageURL = try? Data(contentsOf: url) {
+            cell.postImage.image = UIImage(data: imageURL)
+        }
         
-        //cell.textLabel?.text = post.postTitle
         
         return cell
     }
@@ -46,6 +51,10 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
 
 protocol PostViewDataSource {
     var count: Int { get }
+    func getTitle(number: Int) -> String
+    func getImage(number: Int) -> URL
+    func getDate(number: Int) -> String
+    func getDescrip(number: Int) -> String
     
 }
 

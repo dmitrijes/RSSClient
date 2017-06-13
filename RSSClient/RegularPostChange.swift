@@ -12,7 +12,6 @@ class RegularPostChange {
     
     let textPat = "<[\\w =:'~?.\\-\"/]+>"
     let imgPat = "src([\\w\\W]+?)\\s"
-    var result = [String]()
     
     func changeText(text: String) -> [String] {
         let regex = try! NSRegularExpression(pattern: textPat, options: [])
@@ -40,8 +39,7 @@ class RegularPostChange {
                 filtr += line + "\n"
             }
         }
-        result.append(filtr)
-        result.append(imageOrVideoLink)
+        let result = [filtr, imageOrVideoLink]
         imageOrVideoLink = ""
         return result
     }

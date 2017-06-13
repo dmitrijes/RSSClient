@@ -50,8 +50,20 @@ extension PostViewController: PostViewDataSource {
         return data?.count ?? 0
     }
     
-    func getPost(_ numberOfPost: Int) -> Posts {
-        return data![numberOfPost]
+    func getTitle(number: Int) -> String {
+        return data?[number].postTitle ?? ""
+    }
+    
+    func getImage(number: Int) -> URL {
+        return URL(string: (data?[number].postImage)!)!
+    }
+    
+    func getDate(number: Int) -> String {
+        return data?[number].postDate ?? ""
+    }
+    
+    func getDescrip(number: Int) -> String {
+        return data?[number].postDescrip ?? ""
     }
 }
 

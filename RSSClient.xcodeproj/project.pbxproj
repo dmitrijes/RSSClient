@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		682700AE1EEFDED700B8FA85 /* PostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682700AD1EEFDED700B8FA85 /* PostViewCell.swift */; };
 		93DAFD5C1EC4A7A600A47C7D /* RegularPostChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */; };
 		93E462711EBB568700DD947E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E462701EBB568700DD947E /* AppDelegate.swift */; };
 		93E462731EBB568700DD947E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E462721EBB568700DD947E /* PostViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		682700AD1EEFDED700B8FA85 /* PostViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewCell.swift; sourceTree = "<group>"; };
 		93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularPostChange.swift; sourceTree = "<group>"; };
 		93E4626D1EBB568700DD947E /* RSSClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E462701EBB568700DD947E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				93F92A541EE6C18300E5D320 /* PostsView.swift */,
+				682700AD1EEFDED700B8FA85 /* PostViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				93EE2B181EC33D3300635BCC /* Posts.swift in Sources */,
 				93E462711EBB568700DD947E /* AppDelegate.swift in Sources */,
 				93DAFD5C1EC4A7A600A47C7D /* RegularPostChange.swift in Sources */,
+				682700AE1EEFDED700B8FA85 /* PostViewCell.swift in Sources */,
 				93EE2B161EC3379400635BCC /* DataParse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
