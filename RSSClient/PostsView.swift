@@ -14,10 +14,11 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
 
     @IBOutlet weak var tableForDisplayData: UITableView!
     
-    @IBOutlet weak var dataSource : PostViewController!
+
+    @IBOutlet var dataSource : PostViewDataSource!
     
     
-    //MARK -> Data
+    //MARK: -> Data
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -34,10 +35,10 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
         cell.postTitle.text = dataSource.getTitle(number: indexPath.row)
         cell.postDate.text = dataSource.getDate(number: indexPath.row)
         cell.postDescrip.text = dataSource.getDescrip(number: indexPath.row)
-        let url = dataSource.getImage(number: indexPath.row)
-        if let imageURL = try? Data(contentsOf: url) {
-            cell.postImage.image = UIImage(data: imageURL)
+        DispatchQueue.global().async {
+            cell.postImage.image = self.dataSource.getImage(number: indexPath.row)
         }
+        
         
         
         return cell
@@ -49,13 +50,16 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
     
 }
 
+@objc
 protocol PostViewDataSource {
+    
     var count: Int { get }
     func getTitle(number: Int) -> String
-    func getImage(number: Int) -> URL
+    func getImage(number: Int) -> UIImage?
     func getDate(number: Int) -> String
     func getDescrip(number: Int) -> String
     
+
 }
 
 protocol TableViewDataReload {

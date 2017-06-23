@@ -49,13 +49,20 @@ extension PostViewController: PostViewDataSource {
     var count: Int {
         return data?.count ?? 0
     }
-    
     func getTitle(number: Int) -> String {
         return data?[number].postTitle ?? ""
     }
     
-    func getImage(number: Int) -> URL {
-        return URL(string: (data?[number].postImage)!)!
+    func getImage(number: Int) -> UIImage? {
+        var image : UIImage?
+        let url = URL(string: (self.data?[number].postImage)!)!
+        if let imageURL = try? Data(contentsOf: url) {
+            DispatchQueue.main.sync {
+                image = UIImage(data: imageURL)
+            }
+        }
+        return image
+        
     }
     
     func getDate(number: Int) -> String {
@@ -65,5 +72,6 @@ extension PostViewController: PostViewDataSource {
     func getDescrip(number: Int) -> String {
         return data?[number].postDescrip ?? ""
     }
+
 }
 
