@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
+class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
 
     @IBOutlet weak var tableForDisplayData: UITableView!
     
@@ -35,17 +35,39 @@ class PostsView: UIView, UITableViewDataSource, TableViewDataReload {
         cell.postTitle.text = dataSource.getTitle(number: indexPath.row)
         cell.postDate.text = dataSource.getDate(number: indexPath.row)
         cell.postDescrip.text = dataSource.getDescrip(number: indexPath.row)
-        DispatchQueue.global().async {
-            cell.postImage.image = self.dataSource.getImage(number: indexPath.row)
+        loadImageCell(numberAt: indexPath.row) { (data, error) in
+            if let error = error {
+                print(error)
+            }
+            guard let data = data else {
+                print("qwe")
+                return
+            }
+            DispatchQueue.main.async {
+                cell.postImage.image = data
+            }
+            
         }
-        
-        
+
         
         return cell
     }
     
     func reloadTable() {
         tableForDisplayData.reloadData()
+    }
+    
+    func loadImageCell(numberAt: Int, complition: @escaping (UIImage?, Error?) -> Void)  {
+        dataSource.getImage(number: numberAt) { (data, error) in
+            if let error = error {
+                print(error)
+            }
+            guard let image = data else {
+                print("qwe")
+                return
+            }
+            complition(image, nil)
+        }
     }
     
 }
@@ -55,13 +77,13 @@ protocol PostViewDataSource {
     
     var count: Int { get }
     func getTitle(number: Int) -> String
-    func getImage(number: Int) -> UIImage?
+    func getImage(number: Int, complition: @escaping (UIImage?, Error?) -> Void)
     func getDate(number: Int) -> String
     func getDescrip(number: Int) -> String
     
-
 }
 
-protocol TableViewDataReload {
+protocol PostViewDataReload {
     func reloadTable()
+    func loadImageCell(numberAt: Int, complition: @escaping (UIImage?, Error?) -> Void)
 }

@@ -19,8 +19,8 @@ class PostViewController: UIViewController {
         }
     }
     
-    var delegate : PostsView {
-        return view as! PostsView
+    var delegate : PostViewDataReload {
+        return view as! PostViewDataReload
     }
     
     
@@ -53,15 +53,15 @@ extension PostViewController: PostViewDataSource {
         return data?[number].postTitle ?? ""
     }
     
-    func getImage(number: Int) -> UIImage? {
+    func getImage(number: Int, complition: @escaping (UIImage?, Error?) -> Void) {
         var image : UIImage?
-        let url = URL(string: (self.data?[number].postImage)!)!
-        if let imageURL = try? Data(contentsOf: url) {
-            DispatchQueue.main.sync {
-                image = UIImage(data: imageURL)
+        DispatchQueue.global().async {
+            let url = URL(string: (self.data?[number].postImage)!)!
+            if let imageURL = try? Data(contentsOf: url) {
+            image = UIImage(data: imageURL)
+            complition(image, nil)
             }
         }
-        return image
         
     }
     

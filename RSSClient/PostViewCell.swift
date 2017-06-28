@@ -15,5 +15,4 @@ class PostViewCell: UITableViewCell {
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var postDescrip: UILabel!
 
-
 }
