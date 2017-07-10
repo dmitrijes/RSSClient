@@ -17,7 +17,7 @@ class ImageLoaderService {
         if let image = images[num] {
             complition(image, num)
         } else {
-            loadImage(imageUrl: imageUrl) { (result) in
+            loadImage(imageUrl: imageUrl) { (result, response, error) in
                 guard let image = result else {
                     self.images[num] = #imageLiteral(resourceName: "imagePlaceHolder")
                     //DispatchQueue.main.async {
@@ -34,14 +34,32 @@ class ImageLoaderService {
         }
     }
     
-    private func loadImage(imageUrl: URL, callback: @escaping (UIImage?) -> Void) {
-        if let imageURLData = try? Data(contentsOf: imageUrl) {
-            DispatchQueue.global().async {
-                if let image = UIImage(data: imageURLData) {
-                    callback(image)
-                }
+    private func loadImage(imageUrl: URL, callback: @escaping (UIImage?, URLResponse?, Error?) -> Void) {
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        let task = session.dataTask(with: imageUrl) { (data, response, error) in
+            guard let data = data else {
+                callback(nil, nil, error)
+                return
             }
+            let image = UIImage(data: data)
+            callback(image, nil, nil)
         }
+        task.resume()
+        
+        
+        
+        
+        
+        //if let imageURLData = try? Data(contentsOf: imageUrl) {
+        //    DispatchQueue.global().async {
+        //        if let image = UIImage(data: imageURLData) {
+        //            callback(image)
+        //        }
+        //    }
+        //}
     }
     
 }
