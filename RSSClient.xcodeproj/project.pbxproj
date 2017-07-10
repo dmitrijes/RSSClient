@@ -18,6 +18,7 @@
 		93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B131EC31A7700635BCC /* DownloadDataService.swift */; };
 		93EE2B161EC3379400635BCC /* DataParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B151EC3379400635BCC /* DataParse.swift */; };
 		93EE2B181EC33D3300635BCC /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE2B171EC33D3300635BCC /* Posts.swift */; };
+		93F5A3501F1397370010B90D /* ImageLoaderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F5A34F1F1397370010B90D /* ImageLoaderService.swift */; };
 		93F92A551EE6C18300E5D320 /* PostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F92A541EE6C18300E5D320 /* PostsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		93EE2B131EC31A7700635BCC /* DownloadDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadDataService.swift; sourceTree = "<group>"; };
 		93EE2B151EC3379400635BCC /* DataParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParse.swift; sourceTree = "<group>"; };
 		93EE2B171EC33D3300635BCC /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		93F5A34F1F1397370010B90D /* ImageLoaderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoaderService.swift; sourceTree = "<group>"; };
 		93F92A541EE6C18300E5D320 /* PostsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 				93EE2B131EC31A7700635BCC /* DownloadDataService.swift */,
 				93EE2B151EC3379400635BCC /* DataParse.swift */,
 				93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */,
+				93F5A34F1F1397370010B90D /* ImageLoaderService.swift */,
 			);
 			name = "Download Data";
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93F5A3501F1397370010B90D /* ImageLoaderService.swift in Sources */,
 				93F92A551EE6C18300E5D320 /* PostsView.swift in Sources */,
 				93E462731EBB568700DD947E /* PostViewController.swift in Sources */,
 				93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */,

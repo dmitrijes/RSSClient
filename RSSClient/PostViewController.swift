@@ -12,6 +12,7 @@ class PostViewController: UIViewController {
 
     let url = "http://feeds.macrumors.com/MacRumors-All"
     let downloadData = DownloadDataService()
+    let imageLoader = ImageLoaderService()
     
     var data : [Posts]! {
         didSet {
@@ -27,6 +28,11 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        startApp()
+        
+    }
+    
+    func startApp () {
         downloadData.downloadData(url: url) { (data, _, error) in
             if let error = error {
                 print(error)
@@ -53,16 +59,14 @@ extension PostViewController: PostViewDataSource {
         return data?[number].postTitle ?? ""
     }
     
-    func getImage(number: Int, complition: @escaping (UIImage?, Error?) -> Void) {
-        var image : UIImage?
-        DispatchQueue.global().async {
-            let url = URL(string: (self.data?[number].postImage)!)!
-            if let imageURL = try? Data(contentsOf: url) {
-            image = UIImage(data: imageURL)
-            complition(image, nil)
+    func getImage(number: Int) {
+        if let imageUrl = URL(string: (data?[number].postImage)!) {
+            imageLoader.tryGetImageFromCache(num: number, imageUrl: imageUrl) { (image, num) in
+                DispatchQueue.main.async {
+                    self.delegate.updateImageCell(number: num, image: image)
+                }
             }
         }
-        
     }
     
     func getDate(number: Int) -> String {

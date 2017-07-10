@@ -10,9 +10,9 @@ import Foundation
 
 class Posts {
     
-    var postTitle : String?
-    var postDate : String?
-    var postDescrip : String?
-    var postImage : String?
+    var postTitle : String!
+    var postDate : String!
+    var postDescrip : String!
+    var postImage : String!
     
 }

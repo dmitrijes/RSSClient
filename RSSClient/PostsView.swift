@@ -35,21 +35,8 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
         cell.postTitle.text = dataSource.getTitle(number: indexPath.row)
         cell.postDate.text = dataSource.getDate(number: indexPath.row)
         cell.postDescrip.text = dataSource.getDescrip(number: indexPath.row)
-        loadImageCell(numberAt: indexPath.row) { (data, error) in
-            if let error = error {
-                print(error)
-            }
-            guard let data = data else {
-                print("qwe")
-                return
-            }
-            DispatchQueue.main.async {
-                cell.postImage.image = data
-            }
-            
-        }
-
-        
+        dataSource.getImage(number: indexPath.row)
+    
         return cell
     }
     
@@ -57,18 +44,12 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
         tableForDisplayData.reloadData()
     }
     
-    func loadImageCell(numberAt: Int, complition: @escaping (UIImage?, Error?) -> Void)  {
-        dataSource.getImage(number: numberAt) { (data, error) in
-            if let error = error {
-                print(error)
-            }
-            guard let image = data else {
-                print("qwe")
-                return
-            }
-            complition(image, nil)
-        }
+    func updateImageCell(number: Int, image: UIImage) {
+        let indexPath = IndexPath(row: number, section: 0)
+        let cell = tableForDisplayData.cellForRow(at: indexPath) as! PostViewCell
+        cell.postImage.image = image
     }
+    
     
 }
 
@@ -77,7 +58,7 @@ protocol PostViewDataSource {
     
     var count: Int { get }
     func getTitle(number: Int) -> String
-    func getImage(number: Int, complition: @escaping (UIImage?, Error?) -> Void)
+    func getImage(number: Int)
     func getDate(number: Int) -> String
     func getDescrip(number: Int) -> String
     
@@ -85,5 +66,5 @@ protocol PostViewDataSource {
 
 protocol PostViewDataReload {
     func reloadTable()
-    func loadImageCell(numberAt: Int, complition: @escaping (UIImage?, Error?) -> Void)
+    func updateImageCell(number: Int, image: UIImage)
 }
