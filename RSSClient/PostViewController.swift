@@ -28,11 +28,11 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        startApp()
+        startDownloadData()
         
     }
     
-    func startApp () {
+    func startDownloadData() {
         downloadData.downloadData(url: url) { (data, _, error) in
             if let error = error {
                 print(error)
@@ -49,8 +49,6 @@ class PostViewController: UIViewController {
     }
 }
 
-
-
 extension PostViewController: PostViewDataSource {
     var count: Int {
         return data?.count ?? 0
@@ -59,14 +57,24 @@ extension PostViewController: PostViewDataSource {
         return data?[number].postTitle ?? ""
     }
     
-    func getImage(number: Int) {
+    func getImage(number: Int) -> UIImage? {
         if let imageUrl = URL(string: (data?[number].postImage)!) {
-            imageLoader.tryGetImageFromCache(num: number, imageUrl: imageUrl) { (image, num) in
-                DispatchQueue.main.async {
-                    self.delegate.updateImageCell(number: num, image: image)
-                }
+            let image = imageLoader.tryGetImageFromCache(url: imageUrl)
+            if image == nil {
+                imageLoader.loadImage(imageUrl: imageUrl, callback: { (result, response, error) in
+                    guard let image = result else {
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self.delegate.updateImageCell(number: number, image: image)
+                    }
+                })
+            } else {
+                return image
             }
         }
+        return nil
+        
     }
     
     func getDate(number: Int) -> String {

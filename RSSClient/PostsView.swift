@@ -35,7 +35,7 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
         cell.postTitle.text = dataSource.getTitle(number: indexPath.row)
         cell.postDate.text = dataSource.getDate(number: indexPath.row)
         cell.postDescrip.text = dataSource.getDescrip(number: indexPath.row)
-        dataSource.getImage(number: indexPath.row)
+        cell.postImage.image = dataSource.getImage(number: indexPath.row) ?? #imageLiteral(resourceName: "imagePlaceHolder")
     
         return cell
     }
@@ -58,7 +58,7 @@ protocol PostViewDataSource {
     
     var count: Int { get }
     func getTitle(number: Int) -> String
-    func getImage(number: Int)
+    func getImage(number: Int) -> UIImage?
     func getDate(number: Int) -> String
     func getDescrip(number: Int) -> String
     
