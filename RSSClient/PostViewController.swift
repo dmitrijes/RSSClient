@@ -58,23 +58,25 @@ extension PostViewController: PostViewDataSource {
     }
     
     func getImage(number: Int) -> UIImage? {
-        if let imageUrl = URL(string: (data?[number].postImage)!) {
-            let image = imageLoader.tryGetImageFromCache(url: imageUrl)
-            if image == nil {
-                imageLoader.loadImage(imageUrl: imageUrl, callback: { (result, response, error) in
-                    guard let image = result else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self.delegate.updateImageCell(number: number, image: image)
-                    }
-                })
-            } else {
+        if let urlString = data?[number].postImage, let imageUrl = URL(string: urlString) {
+            if let image = imageLoader.tryGetImageFromCache(url: imageUrl) {
                 return image
             }
+            imageLoad(imageUrl: imageUrl, number: number)
+            
         }
         return nil
-        
+    }
+    
+    func imageLoad(imageUrl: URL, number: Int) {
+        imageLoader.loadImage(imageUrl: imageUrl, callback: { (result, response, error) in
+            guard let image = result else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.delegate.updateImageCell(number: number, image: image)
+            }
+        })
     }
     
     func getDate(number: Int) -> String {

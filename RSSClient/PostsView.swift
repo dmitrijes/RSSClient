@@ -46,8 +46,10 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
     
     func updateImageCell(number: Int, image: UIImage) {
         let indexPath = IndexPath(row: number, section: 0)
-        let cell = tableForDisplayData.cellForRow(at: indexPath) as! PostViewCell
-        cell.postImage.image = image
+        if let cell = tableForDisplayData.cellForRow(at: indexPath) as? PostViewCell {
+            cell.postImage.image = image
+        }
+        
     }
     
     
