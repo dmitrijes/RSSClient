@@ -15,6 +15,8 @@ class ImageLoaderService {
     
     let fileSystem = FileManager.default
     
+    let dicName = "ImagesForTable"
+    
     func tryGetImageFromCache(url: URL) -> UIImage? {
         if let image = images[url] {
             return image
@@ -51,7 +53,7 @@ class ImageLoaderService {
         
         if let imageExist = image {
             let docsDir = getDocumentDir()
-            let newDir = docsDir.appendingPathComponent("ImagesForTable").path
+            let newDir = docsDir.appendingPathComponent(dicName).path
         
             if !fileSystem.fileExists(atPath: newDir) {
                 createNewDir(path: newDir)
@@ -59,7 +61,7 @@ class ImageLoaderService {
             
             let imageData = UIImagePNGRepresentation(imageExist)
             let hashImageName = urlToHash(url: imageUrl)
-            let imageSavePath = docsDir.appendingPathComponent("ImagesForTable").appendingPathComponent(hashImageName).path
+            let imageSavePath = getDicImagePath(urlDic: docsDir, urlImage: hashImageName).path
             
             fileSystem.createFile(atPath: imageSavePath, contents: imageData, attributes: nil)
         }
@@ -69,9 +71,9 @@ class ImageLoaderService {
         
         let docsDir = getDocumentDir()
         
-        let qwerty = urlToHash(url: url)
+        let hashImageName = urlToHash(url: url)
         
-        if let data = fileSystem.contents(atPath: docsDir.appendingPathComponent("ImagesForTable").appendingPathComponent(qwerty).path) {
+        if let data = fileSystem.contents(atPath: getDicImagePath(urlDic: docsDir, urlImage: hashImageName).path) {
             let image = UIImage(data: data)
             return image
         }
@@ -95,6 +97,10 @@ class ImageLoaderService {
         } catch let error {
             print("Error \(error.localizedDescription)")
         }
+    }
+    
+    private func getDicImagePath(urlDic: URL, urlImage: String) -> URL {
+        return urlDic.appendingPathComponent(dicName).appendingPathComponent(urlImage)
     }
     
     
