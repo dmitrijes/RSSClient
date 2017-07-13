@@ -11,19 +11,19 @@ import UIKit
 
 class ImageLoaderService {
     
-    var images = [URL: UIImage]()
+    var images = NSCache<NSString, UIImage>()
     
     let fileSystem = FileManager.default
     
     let dicName = "ImagesForTable"
     
     func tryGetImageFromCache(url: URL) -> UIImage? {
-        if let image = images[url] {
+        if let image = images.object(forKey: urlToHash(url: url) as NSString) {
             return image
         }
         
         if let image = getImageFromFileSystem(url: url) {
-            images[url] = image
+            images.setObject(image, forKey: urlToHash(url: url) as NSString)
             return image
         }
         return nil
@@ -42,7 +42,7 @@ class ImageLoaderService {
             
             if let image = UIImage(data: data) {
                 self.writeImageToFileSystem(image: image, imageUrl: imageUrl)
-                self.images[imageUrl] = image
+                self.images.setObject(image, forKey: self.urlToHash(url: imageUrl) as NSString)
                 callback(image, nil, nil)
             }
         }
@@ -52,8 +52,8 @@ class ImageLoaderService {
     private func writeImageToFileSystem(image: UIImage?, imageUrl: URL) {
         
         if let imageExist = image {
-            let docsDir = getDocumentDir()
-            let newDir = docsDir.appendingPathComponent(dicName).path
+            
+            let newDir = cacheFolder().path
         
             if !fileSystem.fileExists(atPath: newDir) {
                 createNewDir(path: newDir)
@@ -61,7 +61,7 @@ class ImageLoaderService {
             
             let imageData = UIImagePNGRepresentation(imageExist)
             let hashImageName = urlToHash(url: imageUrl)
-            let imageSavePath = getDicImagePath(urlDic: docsDir, urlImage: hashImageName).path
+            let imageSavePath = getDicImagePath(urlImage: hashImageName).path
             
             fileSystem.createFile(atPath: imageSavePath, contents: imageData, attributes: nil)
         }
@@ -69,11 +69,9 @@ class ImageLoaderService {
     
     private func getImageFromFileSystem(url: URL) -> UIImage? {
         
-        let docsDir = getDocumentDir()
-        
         let hashImageName = urlToHash(url: url)
         
-        if let data = fileSystem.contents(atPath: getDicImagePath(urlDic: docsDir, urlImage: hashImageName).path) {
+        if let data = fileSystem.contents(atPath: getDicImagePath(urlImage: hashImageName).path) {
             let image = UIImage(data: data)
             return image
         }
@@ -99,8 +97,13 @@ class ImageLoaderService {
         }
     }
     
-    private func getDicImagePath(urlDic: URL, urlImage: String) -> URL {
-        return urlDic.appendingPathComponent(dicName).appendingPathComponent(urlImage)
+    private func cacheFolder() -> URL {
+        let docsDir = getDocumentDir()
+        return docsDir.appendingPathComponent(dicName)
+    }
+
+    private func getDicImagePath(urlImage: String) -> URL {
+        return cacheFolder().appendingPathComponent(urlImage)
     }
     
     
