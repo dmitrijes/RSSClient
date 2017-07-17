@@ -32,6 +32,14 @@ class PostViewController: UIViewController {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            let cell = sender as! PostViewCell
+            let showDetail = segue.destination as! DetailViewController
+            showDetail.cell = cell
+        }
+    }
+    
     func startDownloadData() {
         downloadData.downloadData(url: url) { (data, _, error) in
             if let error = error {
