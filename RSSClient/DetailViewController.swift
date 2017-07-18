@@ -16,7 +16,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var text: UILabel!
     
     var cell : PostViewCell!
-    var num : Int!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
