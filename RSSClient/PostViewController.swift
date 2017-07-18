@@ -10,7 +10,6 @@ import UIKit
 
 class PostViewController: UIViewController {
 
-    let url = "http://feeds.macrumors.com/MacRumors-All"
     let downloadData = DownloadDataService()
     let imageLoader = ImageLoaderService()
     
@@ -33,7 +32,7 @@ class PostViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == Constans.segueId {
             let cell = sender as! PostViewCell
             let showDetail = segue.destination as! DetailViewController
             showDetail.cell = cell
@@ -41,7 +40,7 @@ class PostViewController: UIViewController {
     }
     
     func startDownloadData() {
-        downloadData.downloadData(url: url) { (data, _, error) in
+        downloadData.downloadData(url: Constans.resourseUrl) { (data, _, error) in
             if let error = error {
                 print(error)
                 return

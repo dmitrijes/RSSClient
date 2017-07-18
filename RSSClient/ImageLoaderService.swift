@@ -15,8 +15,6 @@ class ImageLoaderService {
     
     let fileSystem = FileManager.default
     
-    let dicName = "ImagesForTable"
-    
     func tryGetImageFromCache(url: URL) -> UIImage? {
         if let image = images.object(forKey: urlToHash(url: url) as NSString) {
             return image
@@ -99,7 +97,7 @@ class ImageLoaderService {
     
     private func cacheFolder() -> URL {
         let docsDir = getDocumentDir()
-        return docsDir.appendingPathComponent(dicName)
+        return docsDir.appendingPathComponent(Constans.dicName)
     }
 
     private func getDicImagePath(urlImage: String) -> URL {

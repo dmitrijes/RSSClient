@@ -10,11 +10,8 @@ import Foundation
 
 class RegularPostChange {
     
-    let textPat = "<[\\w =:'~?.\\-\"/]+>"
-    let imgPat = "src([\\w\\W]+?)\\s"
-    
     func changeText(text: String) -> [String] {
-        let regex = try! NSRegularExpression(pattern: textPat, options: [])
+        let regex = try! NSRegularExpression(pattern: Constans.textPat, options: [])
         var copyText = text
         var newPosition = 0
         var imageOrVideoLink = ""
@@ -45,7 +42,7 @@ class RegularPostChange {
     }
     
     func getImgLinkFromText(sub: String) -> String {
-        let regex = try! NSRegularExpression(pattern: imgPat, options: [])
+        let regex = try! NSRegularExpression(pattern: Constans.imgPat, options: [])
         
         let range = regex.rangeOfFirstMatch(in: sub, options: [], range: NSRange(location: 0, length: sub.characters.count))
         if range.length == 0 {
