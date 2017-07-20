@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var text: UILabel!
     
+    
     var cell : PostViewCell!
     
     override func viewDidLoad() {

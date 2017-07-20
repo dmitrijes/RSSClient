@@ -30,7 +30,7 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constans.cellId, for: indexPath) as! PostViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constans.id.cellId, for: indexPath) as! PostViewCell
         
         cell.postTitle.text = dataSource.getTitle(number: indexPath.row)
         cell.postDate.text = dataSource.getDate(number: indexPath.row)
