@@ -32,7 +32,7 @@ class PostViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constans.segueId {
+        if segue.identifier == Constans.id.segueId {
             let cell = sender as! PostViewCell
             let showDetail = segue.destination as! DetailViewController
             showDetail.cell = cell
@@ -40,7 +40,7 @@ class PostViewController: UIViewController {
     }
     
     func startDownloadData() {
-        downloadData.downloadData(url: Constans.resourseUrl) { (data, _, error) in
+        downloadData.downloadData(url: Constans.feeds.macRumosUrl) { (data, _, error) in
             if let error = error {
                 print(error)
                 return

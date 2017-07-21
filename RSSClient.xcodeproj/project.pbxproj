@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		682700AE1EEFDED700B8FA85 /* PostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682700AD1EEFDED700B8FA85 /* PostViewCell.swift */; };
+		930924881F21F21600E299D1 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930924871F21F21600E299D1 /* DetailView.swift */; };
 		9313EC331F1CD332004E35B1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313EC311F1CD332004E35B1 /* DetailViewController.swift */; };
 		93DAFD5C1EC4A7A600A47C7D /* RegularPostChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */; };
 		93DE87491F1E559600EDCE07 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE87481F1E559600EDCE07 /* Constants.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		682700AD1EEFDED700B8FA85 /* PostViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewCell.swift; sourceTree = "<group>"; };
+		930924871F21F21600E299D1 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		9313EC311F1CD332004E35B1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularPostChange.swift; sourceTree = "<group>"; };
 		93DE87481F1E559600EDCE07 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				93F92A541EE6C18300E5D320 /* PostsView.swift */,
 				682700AD1EEFDED700B8FA85 /* PostViewCell.swift */,
+				930924871F21F21600E299D1 /* DetailView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93F5A3501F1397370010B90D /* ImageLoaderService.swift in Sources */,
+				930924881F21F21600E299D1 /* DetailView.swift in Sources */,
 				93DE87491F1E559600EDCE07 /* Constants.swift in Sources */,
 				93F92A551EE6C18300E5D320 /* PostsView.swift in Sources */,
 				93E462731EBB568700DD947E /* PostViewController.swift in Sources */,

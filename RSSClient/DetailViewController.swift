@@ -10,21 +10,41 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var text: UILabel!
+    var delegate : DetailViewDataReload {
+        return view as! DetailViewDataReload
+    }
     
-    var cell : PostViewCell!
+    var cell : PostViewCell! {
+        didSet {
+            delegate.reloadData()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        name.text = cell.postTitle.text
-        date.text = cell.postDate.text
-        image.image = cell.postImage.image
-        text.text = cell.postDescrip.text
-
+ 
+        
     }
 
+}
+
+extension DetailViewController: DetailViewDataSource {
+    
+    func getTitle() -> String {
+        return cell.postTitle.text ?? ""
+    }
+    
+    func getDate() -> String {
+        return cell.postDate.text ?? ""
+    }
+    
+    func getImage() -> UIImage? {
+        return cell.postImage.image ?? #imageLiteral(resourceName: "imagePlaceHolder")
+    }
+    
+    func getText() -> String {
+        return cell.postDescrip.text ?? ""
+    }
+    
 }

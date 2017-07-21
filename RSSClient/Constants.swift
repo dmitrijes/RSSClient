@@ -10,11 +10,22 @@ import Foundation
 
 struct Constans {
     
-    static let resourseUrl = "http://feeds.macrumors.com/MacRumors-All"
-    static let segueId = "showDetail"
-    static let cellId = "postCell"
-    static let textPat = "<[\\w =:'~?.\\-\"/]+>"
-    static let imgPat = "src([\\w\\W]+?)\\s"
-    static let dicName = "ImagesForTable"
+    struct feeds {
+        static let macRumosUrl = "http://feeds.macrumors.com/MacRumors-All"
+    }
+    
+    struct id {
+        static let segueId = "showDetail"
+        static let cellId = "postCell"
+    }
+    
+    struct textPattern {
+        static let textPat = "<[\\w =:'~?.\\-\"/]+>"
+        static let imgPat = "src([\\w\\W]+?)\\s"
+    }
+    
+    struct directoryName {
+        static let dicName = "ImagesForTable"
+    }
     
 }

@@ -97,7 +97,7 @@ class ImageLoaderService {
     
     private func cacheFolder() -> URL {
         let docsDir = getDocumentDir()
-        return docsDir.appendingPathComponent(Constans.dicName)
+        return docsDir.appendingPathComponent(Constans.directoryName.dicName)
     }
 
     private func getDicImagePath(urlImage: String) -> URL {
