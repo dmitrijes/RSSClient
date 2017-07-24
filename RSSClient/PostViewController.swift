@@ -23,6 +23,11 @@ class PostViewController: UIViewController {
         return view as! PostViewDataReload
     }
     
+    private struct Constants {
+        static let macRumosUrl = "http://feeds.macrumors.com/MacRumors-All"
+        static let segueId = "showDetail"
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +36,8 @@ class PostViewController: UIViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constans.id.segueId {
-            let cell = sender as! PostViewCell
-            let showDetail = segue.destination as! DetailViewController
-            showDetail.cell = cell
-        }
-    }
-    
     func startDownloadData() {
-        downloadData.downloadData(url: Constans.feeds.macRumosUrl) { [unowned self] (dataV, _, error) in
+        downloadData.downloadData(url: Constants.macRumosUrl) { [unowned self] (dataV, _, error) in
             if let error = error {
                 print(error)
                 return
@@ -52,6 +49,14 @@ class PostViewController: UIViewController {
             DispatchQueue.main.async {
                 self.data = result
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.segueId {
+            let cell = sender as! PostViewCell
+            let showDetail = segue.destination as! DetailViewController
+            showDetail.cell = cell
         }
     }
 }
