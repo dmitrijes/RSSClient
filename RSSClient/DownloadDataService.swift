@@ -21,12 +21,12 @@ class DownloadDataService {
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
             
-            let task = session.dataTask(with: urlReq) { (data, response, error) in
+            let task = session.dataTask(with: urlReq) { [unowned parseData] (data, response, error) in
                 guard let newData = data else {
                     complition(nil, nil, error)
                     return
                     }
-                    self.parseData.parsingDataStart(newData, complition: { (dataParse, _, error) in
+                    parseData.parsingDataStart(newData, complition: { (dataParse, _, error) in
                         if let error = error {
                             print(error)
                             return

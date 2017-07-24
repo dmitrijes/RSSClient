@@ -66,7 +66,7 @@ protocol PostViewDataSource {
     
 }
 
-protocol PostViewDataReload {
+protocol PostViewDataReload: class {
     func reloadTable()
     func updateImageCell(number: Int, image: UIImage)
 }

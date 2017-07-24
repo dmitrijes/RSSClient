@@ -32,7 +32,7 @@ class ImageLoaderService {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
-        let task = session.dataTask(with: imageUrl) { (data, response, error) in
+        let task = session.dataTask(with: imageUrl) { [unowned images] (data, response, error) in
             guard let data = data else {
                 callback(nil, nil, error)
                 return
@@ -40,7 +40,7 @@ class ImageLoaderService {
             
             if let image = UIImage(data: data) {
                 self.writeImageToFileSystem(image: image, imageUrl: imageUrl)
-                self.images.setObject(image, forKey: self.urlToHash(url: imageUrl) as NSString)
+                images.setObject(image, forKey: self.urlToHash(url: imageUrl) as NSString)
                 callback(image, nil, nil)
             }
         }

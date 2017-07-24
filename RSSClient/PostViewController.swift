@@ -15,11 +15,11 @@ class PostViewController: UIViewController {
     
     var data : [Posts]! {
         didSet {
-             self.delegate.reloadTable()
+             delegate.reloadTable()
         }
     }
     
-    var delegate : PostViewDataReload {
+    unowned var delegate : PostViewDataReload {
         return view as! PostViewDataReload
     }
     
@@ -40,12 +40,12 @@ class PostViewController: UIViewController {
     }
     
     func startDownloadData() {
-        downloadData.downloadData(url: Constans.feeds.macRumosUrl) { (data, _, error) in
+        downloadData.downloadData(url: Constans.feeds.macRumosUrl) { [unowned self] (dataV, _, error) in
             if let error = error {
                 print(error)
                 return
             }
-            guard let result = data else {
+            guard let result = dataV else {
                 print("Can't get data")
                 return
             }
@@ -76,12 +76,12 @@ extension PostViewController: PostViewDataSource {
     }
     
     func imageLoad(imageUrl: URL, number: Int) {
-        imageLoader.loadImage(imageUrl: imageUrl, callback: { (result, response, error) in
+        imageLoader.loadImage(imageUrl: imageUrl, callback: { [unowned delegate] (result, response, error) in
             guard let image = result else {
                 return
             }
             DispatchQueue.main.async {
-                self.delegate.updateImageCell(number: number, image: image)
+                delegate.updateImageCell(number: number, image: image)
             }
         })
     }
