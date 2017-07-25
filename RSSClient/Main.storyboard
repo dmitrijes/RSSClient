@@ -144,12 +144,13 @@
                                                     <constraint firstAttribute="width" priority="750" constant="359" id="TW4-Mv-15l"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3f-CD-npg">
-                                                <rect key="frame" x="8" y="221.66666666666666" width="398" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="text" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="gqY-fX-onG">
+                                                <rect key="frame" x="8" y="221" width="398" height="38"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -157,16 +158,16 @@
                                             <constraint firstAttribute="trailing" secondItem="6DS-LY-gxz" secondAttribute="trailing" constant="8" id="9Sp-oD-7fo"/>
                                             <constraint firstAttribute="trailing" secondItem="QyE-iK-aJH" secondAttribute="trailing" constant="8" id="EAG-4g-PSM"/>
                                             <constraint firstItem="QyE-iK-aJH" firstAttribute="leading" secondItem="U72-ME-f5n" secondAttribute="leading" constant="8" id="GdG-gc-MvQ"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gqY-fX-onG" secondAttribute="bottom" constant="8" id="Km5-zA-Gcj"/>
                                             <constraint firstItem="o6O-Z4-uj5" firstAttribute="top" secondItem="6DS-LY-gxz" secondAttribute="bottom" constant="8" id="Oul-Nr-VpC"/>
-                                            <constraint firstAttribute="trailing" secondItem="S3f-CD-npg" secondAttribute="trailing" constant="8" id="PzH-NB-0do"/>
                                             <constraint firstAttribute="trailing" secondItem="o6O-Z4-uj5" secondAttribute="trailing" constant="8" id="QTn-9y-G0E"/>
+                                            <constraint firstAttribute="trailing" secondItem="gqY-fX-onG" secondAttribute="trailing" constant="8" id="SGR-fb-TDC"/>
+                                            <constraint firstItem="gqY-fX-onG" firstAttribute="leading" secondItem="U72-ME-f5n" secondAttribute="leading" constant="8" id="SGo-7V-Rud"/>
                                             <constraint firstItem="6DS-LY-gxz" firstAttribute="leading" secondItem="U72-ME-f5n" secondAttribute="leading" constant="8" id="XX3-75-kvt"/>
-                                            <constraint firstItem="S3f-CD-npg" firstAttribute="leading" secondItem="U72-ME-f5n" secondAttribute="leading" constant="8" id="cAQ-6z-5wS"/>
                                             <constraint firstItem="QyE-iK-aJH" firstAttribute="top" secondItem="U72-ME-f5n" secondAttribute="top" constant="8" id="erf-cK-D7g"/>
-                                            <constraint firstItem="S3f-CD-npg" firstAttribute="top" secondItem="o6O-Z4-uj5" secondAttribute="bottom" constant="8" id="n6j-Y8-DuN"/>
+                                            <constraint firstItem="gqY-fX-onG" firstAttribute="top" secondItem="o6O-Z4-uj5" secondAttribute="bottom" constant="8" id="fYt-Ud-PDx"/>
+                                            <constraint firstItem="gqY-fX-onG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6DS-LY-gxz" secondAttribute="bottom" priority="750" constant="8" id="isg-BK-5a5"/>
                                             <constraint firstItem="o6O-Z4-uj5" firstAttribute="leading" secondItem="U72-ME-f5n" secondAttribute="leading" constant="8" id="no1-rI-FAU"/>
-                                            <constraint firstItem="S3f-CD-npg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6DS-LY-gxz" secondAttribute="bottom" priority="750" constant="8" id="tAr-28-ehQ"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="S3f-CD-npg" secondAttribute="bottom" constant="8" id="vp2-lA-hU9"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -189,16 +190,16 @@
                         </constraints>
                         <connections>
                             <outlet property="dataSource" destination="khu-vL-OM9" id="spR-Fe-WgM"/>
-                            <outlet property="date" destination="6DS-LY-gxz" id="h5a-hv-sCz"/>
-                            <outlet property="image" destination="o6O-Z4-uj5" id="edx-AU-rnw"/>
-                            <outlet property="name" destination="QyE-iK-aJH" id="rUb-6q-Eho"/>
-                            <outlet property="text" destination="S3f-CD-npg" id="PsQ-aU-wvr"/>
+                            <outlet property="dateLabel" destination="6DS-LY-gxz" id="hKy-sl-Ewz"/>
+                            <outlet property="descriptionTextView" destination="gqY-fX-onG" id="WBS-KH-H5t"/>
+                            <outlet property="imageLabel" destination="o6O-Z4-uj5" id="opF-gR-iiN"/>
+                            <outlet property="nameLabel" destination="QyE-iK-aJH" id="ad5-S8-SGw"/>
                         </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BK5-1G-Yko" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="-92.203898050974516"/>
+            <point key="canvasLocation" x="923.1884057971015" y="-92.934782608695656"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AXt-II-NpL">

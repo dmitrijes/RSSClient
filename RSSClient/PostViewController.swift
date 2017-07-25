@@ -10,7 +10,6 @@ import UIKit
 
 class PostViewController: UIViewController {
 
-    let downloadData = DownloadDataService()
     let imageLoader = ImageLoaderService()
     
     var data : [Posts]! {
@@ -37,17 +36,17 @@ class PostViewController: UIViewController {
     }
     
     func startDownloadData() {
-        downloadData.downloadData(url: Constants.macRumosUrl) { [unowned self] (dataV, _, error) in
+        DownloadDataService().downloadData(url: Constants.macRumosUrl) { [weak self] (posts, error) in
             if let error = error {
                 print(error)
                 return
             }
-            guard let result = dataV else {
+            guard let result = posts else {
                 print("Can't get data")
                 return
             }
             DispatchQueue.main.async {
-                self.data = result
+                self?.data = result
             }
         }
     }
@@ -81,12 +80,12 @@ extension PostViewController: PostViewDataSource {
     }
     
     func imageLoad(imageUrl: URL, number: Int) {
-        imageLoader.loadImage(imageUrl: imageUrl, callback: { [unowned delegate] (result, response, error) in
+        imageLoader.loadImage(imageUrl: imageUrl, callback: { [weak self] (result, error) in
             guard let image = result else {
                 return
             }
             DispatchQueue.main.async {
-                delegate.updateImageCell(number: number, image: image)
+                self?.delegate.updateImageCell(number: number, image: image)
             }
         })
     }
@@ -97,6 +96,10 @@ extension PostViewController: PostViewDataSource {
     
     func getDescrip(number: Int) -> String {
         return data?[number].postDescrip ?? ""
+    }
+    
+    func setIdCellForPassData(id: Int) {
+        
     }
 
 }

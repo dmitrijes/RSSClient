@@ -10,25 +10,31 @@ import Foundation
 
 class DataParse: NSObject, XMLParserDelegate {
     
-    var parser = XMLParser()
-    var eName = ""
-    var prevName = ""
+    var eName : String!
+    var prevName : String!
+    var foundCharacters = ""
     var fir = false
     var posts : [Posts] = []
     var post : Posts!
-    var foundCharacters = ""
-    var regular = RegularPostChange()
     
-    func parsingDataStart(_ data: Data, complition: ([Posts]?, URLResponse?, Error?) -> Void) {
-        parser = XMLParser(data: data)
+    struct Constants {
+        
+        static let item = "item"
+        static let title = "title"
+        static let pubDate = "pubDate"
+        static let description = "description"
+        
+    }
+    
+    func parsingDataStart(_ data: Data) -> [Posts] {
+        let parser = XMLParser(data: data)
         parser.delegate = self
         parser.parse()
-        complition(posts, nil, nil)
-        return
+        return posts
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "item" {
+        if elementName == Constants.item {
             post = Posts()
         }
         eName = elementName
@@ -37,15 +43,13 @@ class DataParse: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if post != nil {
             switch (elementName) {
-            case "title": post.postTitle = foundCharacters
-            case "pubDate": post.postDate = foundCharacters
-            case "description":
-                let result = regular.changeText(text: foundCharacters)
+            case Constants.title: post.postTitle = foundCharacters
+            case Constants.pubDate: post.postDate = foundCharacters
+            case Constants.description:
+                let result = RegularPostChange().changeText(text: foundCharacters)
                 post.postDescrip = result[0]
                 post.postImage = result[1]
                 posts.append(post)
-            //case "channel": printPosts()
-                
             default: break
             }
         }
@@ -53,9 +57,9 @@ class DataParse: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        if eName == "title" || eName == "pubDate" {
+        if eName == Constants.title || eName == Constants.pubDate {
             foundCharacters = string
-        } else if eName == "description" {
+        } else if eName == Constants.description {
             foundCharacters += string
         }
         

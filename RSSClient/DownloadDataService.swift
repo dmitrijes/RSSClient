@@ -11,9 +11,7 @@ import Foundation
 
 class DownloadDataService {
     
-    let parseData = DataParse()
-    
-    func downloadData(url: String, complition: @escaping ([Posts]?, URLResponse?, Error?) -> Void) {
+    func downloadData(url: String, complition: @escaping ([Posts]?, Error?) -> Void) {
         
             let newUrl = URL(string: url)               
             let urlReq = URLRequest(url: newUrl!)
@@ -21,23 +19,13 @@ class DownloadDataService {
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
             
-            let task = session.dataTask(with: urlReq) { [unowned parseData] (data, response, error) in
+            let task = session.dataTask(with: urlReq) { (data, response, error) in
                 guard let newData = data else {
-                    complition(nil, nil, error)
+                    complition(nil, error)
                     return
                     }
-                    parseData.parsingDataStart(newData, complition: { (dataParse, _, error) in
-                        if let error = error {
-                            print(error)
-                            return
-                        }
-                        guard let resultData = dataParse else {
-                            print("Can't parse data")
-                            return
-                        }
-                        complition(resultData, nil, nil)
-                        return
-                    })
+                    let posts = DataParse().parsingDataStart(newData)
+                complition(posts, nil)
             }
             task.resume()
             

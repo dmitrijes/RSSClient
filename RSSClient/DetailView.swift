@@ -11,21 +11,22 @@ import UIKit
 class DetailView: UIView, DetailViewDataReload {
     
     @IBOutlet var dataSource : DetailViewDataSource!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var text: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var imageLabel: UIImageView!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    
     
     func reloadData() {
-        name.text = dataSource.getTitle()
-        date.text = dataSource.getDate()
+        nameLabel.text = dataSource.getTitle()
+        dateLabel.text = dataSource.getDate()
         let imageIsExist = dataSource.getImage()
         if imageIsExist == #imageLiteral(resourceName: "imagePlaceHolder") {
-            image.removeFromSuperview()
+            imageLabel.removeFromSuperview()
         } else {
-            image.image = imageIsExist
+            imageLabel.image = imageIsExist
         }
-        text.text = dataSource.getText()
+        descriptionTextView.text = dataSource.getText()
     }
 
 }

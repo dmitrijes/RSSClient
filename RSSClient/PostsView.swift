@@ -21,7 +21,6 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
         static let cellId = "postCell"
     }
     
-    
     //MARK: -> Data
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,7 +54,6 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
         }
         
     }
-    
     
 }
 

@@ -11,7 +11,7 @@ import Foundation
 class RegularPostChange {
     
     private struct Constants {
-        static let textPat = "<[\\w =:'~?.\\-\"/]+>"
+        static let textPat = "<[\\w =:'~?&%.\\-\"/]+>"
         static let imgPat = "src([\\w\\W]+?)\\s"
     }
     
@@ -38,7 +38,7 @@ class RegularPostChange {
         var filtr = ""
         copyText.enumerateLines { (line, true) in
             if !line.isEmpty {
-                filtr += line + "\n"
+                filtr += line + "\n    "
             }
         }
         let result = [filtr, imageOrVideoLink]
