@@ -53,11 +53,11 @@ class PostViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueId {
-            let cell = sender as! PostViewCell
             let showDetail = segue.destination as! DetailViewController
-            showDetail.cell = cell
+            showDetail.post = data?[sender as! Int]
         }
     }
+    
 }
 
 extension PostViewController: PostViewDataSource {
@@ -98,8 +98,8 @@ extension PostViewController: PostViewDataSource {
         return data?[number].postDescrip ?? ""
     }
     
-    func setIdCellForPassData(id: Int) {
-        
+    func passIndexSelectedCell(index: Int) {
+        performSegue(withIdentifier: "showDetail", sender: index)
     }
 
 }

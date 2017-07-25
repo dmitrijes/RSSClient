@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
+class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDataReload {
 
     @IBOutlet weak var tableForDisplayData: UITableView!
     
@@ -55,6 +55,10 @@ class PostsView: UIView, UITableViewDataSource, PostViewDataReload {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dataSource.passIndexSelectedCell(index: indexPath.row)
+    }
+    
 }
 
 @objc
@@ -65,6 +69,7 @@ protocol PostViewDataSource {
     func getImage(number: Int) -> UIImage?
     func getDate(number: Int) -> String
     func getDescrip(number: Int) -> String
+    func passIndexSelectedCell(index: Int)
     
 }
 

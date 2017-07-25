@@ -79,7 +79,6 @@
                                             <outlet property="postDescrip" destination="PIp-xG-HdC" id="Tlg-2x-sf4"/>
                                             <outlet property="postImage" destination="pyU-WC-2wc" id="Bnf-qX-Zft"/>
                                             <outlet property="postTitle" destination="PK8-Fk-cT1" id="cU6-hV-SA5"/>
-                                            <segue destination="khu-vL-OM9" kind="show" identifier="showDetail" id="Snj-lp-daZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -102,6 +101,9 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="FGx-uh-zBh"/>
+                    <connections>
+                        <segue destination="khu-vL-OM9" kind="show" identifier="showDetail" id="DBe-N5-fbI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tBU-he-Uda" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

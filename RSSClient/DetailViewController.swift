@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
         return view as! DetailViewDataReload
     }
     
-    var cell : PostViewCell! {
+    var post : Posts! {
         didSet {
             delegate.reloadData()
         }
@@ -30,19 +30,20 @@ class DetailViewController: UIViewController {
 extension DetailViewController: DetailViewDataSource {
     
     func getTitle() -> String {
-        return cell.postTitle.text ?? ""
+        return post.postTitle ?? ""
     }
     
     func getDate() -> String {
-        return cell.postDate.text ?? ""
+        return post.postDate ?? ""
     }
     
     func getImage() -> UIImage? {
-        return cell.postImage.image ?? #imageLiteral(resourceName: "imagePlaceHolder")
+        let imageUrl = URL(string: post.postImage)
+        return ImageLoaderService().tryGetImageFromCache(url: imageUrl!)
     }
     
     func getText() -> String {
-        return cell.postDescrip.text ?? ""
+        return post.postDescrip ?? ""
     }
     
 }
