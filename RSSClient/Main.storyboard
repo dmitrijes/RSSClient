@@ -71,7 +71,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="tho-S5-KSG" secondAttribute="bottom" constant="8" id="bhl-7J-4dE"/>
                                                 <constraint firstAttribute="trailing" secondItem="PK8-Fk-cT1" secondAttribute="trailing" constant="8" id="qaY-ZT-Zax"/>
                                                 <constraint firstItem="PK8-Fk-cT1" firstAttribute="leading" secondItem="pyU-WC-2wc" secondAttribute="trailing" constant="8" id="xGG-34-0zA"/>
-                                                <constraint firstAttribute="bottom" secondItem="pyU-WC-2wc" secondAttribute="bottom" constant="8" id="xfp-QP-Kb7"/>
+                                                <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="pyU-WC-2wc" secondAttribute="bottom" constant="8" id="xfp-QP-Kb7"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
