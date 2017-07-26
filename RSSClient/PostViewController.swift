@@ -22,7 +22,7 @@ class PostViewController: UIViewController {
         return view as! PostViewDataReload
     }
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let macRumosUrl = "http://feeds.macrumors.com/MacRumors-All"
         static let segueId = "showDetail"
     }
@@ -42,7 +42,12 @@ class PostViewController: UIViewController {
                 return
             }
             guard let result = posts else {
-                print("Can't get data")
+                let alert = UIAlertController(title: "Sorry", message: "Can't get data", preferredStyle: UIAlertControllerStyle.alert)
+                let action = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
+                    print("CAN'T")
+                })
+                alert.addAction(action)
+                self?.present(alert, animated: true, completion: nil)
                 return
             }
             DispatchQueue.main.async {
@@ -61,9 +66,11 @@ class PostViewController: UIViewController {
 }
 
 extension PostViewController: PostViewDataSource {
+    
     var count: Int {
         return data?.count ?? 0
     }
+    
     func getTitle(number: Int) -> String {
         return data?[number].postTitle ?? ""
     }
@@ -99,7 +106,7 @@ extension PostViewController: PostViewDataSource {
     }
     
     func passIndexSelectedCell(index: Int) {
-        performSegue(withIdentifier: "showDetail", sender: index)
+        performSegue(withIdentifier: Constants.segueId, sender: index)
     }
 
 }

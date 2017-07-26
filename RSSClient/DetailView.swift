@@ -21,7 +21,7 @@ class DetailView: UIView, DetailViewDataReload {
         nameLabel.text = dataSource.getTitle()
         dateLabel.text = dataSource.getDate()
         let imageIsExist = dataSource.getImage()
-        if imageIsExist == #imageLiteral(resourceName: "imagePlaceHolder") {
+        if imageIsExist == nil {
             imageLabel.removeFromSuperview()
         } else {
             imageLabel.image = imageIsExist
