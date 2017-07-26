@@ -11,6 +11,7 @@
 		9307486B1F220E5300FCC4E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9307486A1F220E5300FCC4E3 /* Main.storyboard */; };
 		930924881F21F21600E299D1 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930924871F21F21600E299D1 /* DetailView.swift */; };
 		9313EC331F1CD332004E35B1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313EC311F1CD332004E35B1 /* DetailViewController.swift */; };
+		934142AC1F28AB860014A102 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934142AB1F28AB860014A102 /* Reachability.swift */; };
 		93DAFD5C1EC4A7A600A47C7D /* RegularPostChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */; };
 		93E462711EBB568700DD947E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E462701EBB568700DD947E /* AppDelegate.swift */; };
 		93E462731EBB568700DD947E /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E462721EBB568700DD947E /* PostViewController.swift */; };
@@ -39,6 +40,7 @@
 		9307486A1F220E5300FCC4E3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		930924871F21F21600E299D1 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		9313EC311F1CD332004E35B1 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		934142AB1F28AB860014A102 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularPostChange.swift; sourceTree = "<group>"; };
 		93E4626D1EBB568700DD947E /* RSSClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E462701EBB568700DD947E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				9307486A1F220E5300FCC4E3 /* Main.storyboard */,
 				93EE2B171EC33D3300635BCC /* Posts.swift */,
 				93F92A591EE6C60600E5D320 /* View */,
+				934142AB1F28AB860014A102 /* Reachability.swift */,
 			);
 			path = RSSClient;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			files = (
 				93F5A3501F1397370010B90D /* ImageLoaderService.swift in Sources */,
 				930924881F21F21600E299D1 /* DetailView.swift in Sources */,
+				934142AC1F28AB860014A102 /* Reachability.swift in Sources */,
 				93F92A551EE6C18300E5D320 /* PostsView.swift in Sources */,
 				93E462731EBB568700DD947E /* PostViewController.swift in Sources */,
 				93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */,

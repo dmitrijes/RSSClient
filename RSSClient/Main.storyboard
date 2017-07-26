@@ -100,7 +100,7 @@
                             <outlet property="tableForDisplayData" destination="WwO-8x-EH2" id="bLu-aJ-wK0"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="FGx-uh-zBh"/>
+                    <navigationItem key="navigationItem" title="Macrumors" id="FGx-uh-zBh"/>
                     <connections>
                         <segue destination="khu-vL-OM9" kind="show" identifier="showDetail" id="DBe-N5-fbI"/>
                     </connections>
@@ -112,7 +112,7 @@
         <!--Data Source-->
         <scene sceneID="Ovd-0w-d1v">
             <objects>
-                <viewController id="khu-vL-OM9" customClass="DetailViewController" customModule="RSSClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Tech" id="khu-vL-OM9" customClass="DetailViewController" customModule="RSSClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o6a-gD-brm"/>
                         <viewControllerLayoutGuide type="bottom" id="eom-Aw-rVl"/>

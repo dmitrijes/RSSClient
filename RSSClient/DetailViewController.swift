@@ -19,11 +19,6 @@ class DetailViewController: UIViewController {
             delegate.reloadData()
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
 
 }
 

@@ -13,23 +13,20 @@ class DownloadDataService {
     
     func downloadData(url: String, complition: @escaping ([Posts]?, Error?) -> Void) {
         
-            let newUrl = URL(string: url)               
-            let urlReq = URLRequest(url: newUrl!)
-            
-            let config = URLSessionConfiguration.default
-            let session = URLSession(configuration: config)
-            
-            let task = session.dataTask(with: urlReq) { (data, response, error) in
-                guard let newData = data else {
-                    complition(nil, error)
-                    return
-                    }
-                    let posts = DataParse().parsingDataStart(newData)
-                complition(posts, nil)
-            }
-            task.resume()
-            
+        let newUrl = URL(string: url)
+        let urlReq = URLRequest(url: newUrl!)
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: urlReq) { (data, _, error) in
+            guard let newData = data else {
+                complition(nil, error)
+                return
+                }
+                let posts = DataParse().parsingDataStart(newData)
+            complition(posts, nil)
         }
+        task.resume()
     }
+}
 
 

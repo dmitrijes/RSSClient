@@ -31,7 +31,12 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        startDownloadData()
+        if Reachability().isInternetAvailable() {
+            print("YES")
+            startDownloadData()
+        } else {
+            print("NO")
+        }
         
     }
     
