@@ -27,16 +27,10 @@ class PostViewController: UIViewController {
         static let segueId = "showDetail"
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Reachability().isInternetAvailable() {
-            print("YES")
-            startDownloadData()
-        } else {
-            print("NO")
-        }
+        startDownloadData()
         
     }
     
