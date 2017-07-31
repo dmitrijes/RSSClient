@@ -27,10 +27,33 @@ class PostViewController: UIViewController {
         static let segueId = "showDetail"
     }
     
+    var reachability: Reachability? = Reachability.networkReachabilityForInternetConnection()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        startDownloadData()
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        
+        _ = reachability?.startNotifier()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkReachability()
+    }
+    
+    func checkReachability() {
+        guard let r = reachability else { return }
+        if r.isReachable  {
+            startDownloadData()
+        } else {
+            showAlertNoInternetConnection()
+        }
+    }
+    
+    func reachabilityDidChange(_ notification: Notification) {
+        checkReachability()
     }
     
     func startDownloadData() {
@@ -40,12 +63,7 @@ class PostViewController: UIViewController {
                 return
             }
             guard let result = posts else {
-                let alert = UIAlertController(title: "Sorry", message: "Can't get data", preferredStyle: UIAlertControllerStyle.alert)
-                let action = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
-                    print("CAN'T")
-                })
-                alert.addAction(action)
-                self?.present(alert, animated: true, completion: nil)
+                self?.showAlertIfCantGetData()
                 return
             }
             DispatchQueue.main.async {
@@ -54,11 +72,32 @@ class PostViewController: UIViewController {
         }
     }
     
+    func showAlertIfCantGetData() {
+        let alert = UIAlertController(title: "Sorry", message: "Can't get data", preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertNoInternetConnection() {
+        let alert = UIAlertController(title: "Sorry", message: "No Internet Connection", preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.cancel, handler: { [weak self] (action) in
+            self?.checkReachability()
+        })
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueId {
             let showDetail = segue.destination as! DetailViewController
             showDetail.post = data?[sender as! Int]
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        reachability?.stopNotifier()
     }
     
 }
