@@ -10,7 +10,7 @@ import UIKit
 
 class DetailView: UIView, DetailViewDataReload {
     
-    @IBOutlet var dataSource : DetailViewDataSource!
+    @IBOutlet weak var dataSource : DetailViewDataSource!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var imageLabel: UIImageView!
@@ -28,7 +28,7 @@ class DetailView: UIView, DetailViewDataReload {
         }
         descriptionTextView.text = dataSource.getText()
     }
-
+    
 }
 
 

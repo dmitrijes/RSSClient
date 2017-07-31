@@ -18,7 +18,7 @@ class PostViewController: UIViewController {
         }
     }
     
-    unowned var delegate : PostViewDataReload {
+    var delegate : PostViewDataReload {
         return view as! PostViewDataReload
     }
     
@@ -27,20 +27,10 @@ class PostViewController: UIViewController {
         static let segueId = "showDetail"
     }
     
-    var reachability = ReachabilityC(hostName: Constants.macRumosUrl)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-        
-        _ = reachability?.startNotifier()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        checkReachability()
+        startDownloadData()
     }
     
     func startDownloadData() {
@@ -69,27 +59,6 @@ class PostViewController: UIViewController {
             let showDetail = segue.destination as! DetailViewController
             showDetail.post = data?[sender as! Int]
         }
-    }
-    
-    func reachabilityDidChange(_ notification: Notification) {
-        checkReachability()
-    }
-    
-    func checkReachability() {
-        guard let r = reachability else { return }
-        if r.isReachable  {
-            startDownloadData()
-        } else {
-            let alert = UIAlertController(title: "Sorry", message: "No Internet Connection", preferredStyle: UIAlertControllerStyle.alert)
-            let action = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-        reachability?.stopNotifier()
     }
     
 }

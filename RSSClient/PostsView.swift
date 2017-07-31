@@ -15,7 +15,7 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
     @IBOutlet weak var tableForDisplayData: UITableView!
     
 
-    @IBOutlet var dataSource : PostViewDataSource!
+    @IBOutlet weak var dataSource : PostViewDataSource!
     
     private struct Constants {
         static let cellId = "postCell"
