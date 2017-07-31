@@ -21,6 +21,16 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
         static let cellId = "postCell"
     }
     
+    lazy var refreshControl: UIRefreshControl = {
+        
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action: #selector(handleRefresh(_:)), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
+    
+    
     //MARK: -> Data
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,6 +54,7 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
     }
     
     func reloadTable() {
+        tableForDisplayData.addSubview(refreshControl)
         tableForDisplayData.reloadData()
     }
     
@@ -57,6 +68,11 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dataSource.passIndexSelectedCell(index: indexPath.row)
+    }
+    
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
+        tableForDisplayData.reloadData()
+        refreshControl.endRefreshing()
     }
     
 }
