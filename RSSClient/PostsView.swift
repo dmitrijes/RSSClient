@@ -12,7 +12,11 @@ import UIKit
 
 class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDataReload {
 
-    @IBOutlet weak var tableForDisplayData: UITableView!
+    @IBOutlet weak var tableForDisplayData: UITableView! {
+        didSet {
+            tableForDisplayData.addSubview(refreshControl)
+        }
+    }
     
 
     @IBOutlet weak var dataSource : PostViewDataSource!
@@ -54,8 +58,10 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
     }
     
     func reloadTable() {
-        tableForDisplayData.addSubview(refreshControl)
         tableForDisplayData.reloadData()
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
     }
     
     func updateImageCell(number: Int, image: UIImage) {
@@ -72,7 +78,6 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
         dataSource.checkUpdateData()
-        refreshControl.endRefreshing()
     }
     
 }

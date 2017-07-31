@@ -25,6 +25,8 @@ class PostViewController: UIViewController {
     fileprivate struct Constants {
         static let macRumosUrl = "http://feeds.macrumors.com/MacRumors-All"
         static let segueId = "showDetail"
+        static let cantGetData = "Can't get data"
+        static let internetConnection = "No Internet Connection"
     }
     
     var reachability: Reachability? = Reachability.networkReachabilityForInternetConnection()
@@ -46,9 +48,12 @@ class PostViewController: UIViewController {
     func checkReachability() {
         guard let r = reachability else { return }
         if r.isReachable  {
-            startDownloadData()
+            if data == nil {
+                print("Download")
+                startDownloadData()
+            }
         } else {
-            showAlertNoInternetConnection()
+            showAlert(text: Constants.internetConnection)
         }
     }
     
@@ -63,7 +68,7 @@ class PostViewController: UIViewController {
                 return
             }
             guard let result = posts else {
-                self?.showAlertIfCantGetData()
+                self?.showAlert(text: Constants.cantGetData)
                 return
             }
             DispatchQueue.main.async {
@@ -72,18 +77,9 @@ class PostViewController: UIViewController {
         }
     }
     
-    func showAlertIfCantGetData() {
-        let alert = UIAlertController(title: "Sorry", message: "Can't get data", preferredStyle: UIAlertControllerStyle.alert)
+    func showAlert(text: String) {
+        let alert = UIAlertController(title: "Sorry", message: text, preferredStyle: UIAlertControllerStyle.alert)
         let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showAlertNoInternetConnection() {
-        let alert = UIAlertController(title: "Sorry", message: "No Internet Connection", preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.cancel, handler: { [weak self] (action) in
-            self?.checkReachability()
-        })
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
