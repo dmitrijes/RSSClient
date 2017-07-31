@@ -71,7 +71,7 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
-        tableForDisplayData.reloadData()
+        dataSource.checkUpdateData()
         refreshControl.endRefreshing()
     }
     
@@ -86,6 +86,7 @@ protocol PostViewDataSource {
     func getDate(number: Int) -> String
     func getDescrip(number: Int) -> String
     func passIndexSelectedCell(index: Int)
+    func checkUpdateData()
     
 }
 

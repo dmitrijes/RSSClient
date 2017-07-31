@@ -145,5 +145,9 @@ extension PostViewController: PostViewDataSource {
     func passIndexSelectedCell(index: Int) {
         performSegue(withIdentifier: Constants.segueId, sender: index)
     }
+    
+    func checkUpdateData() {
+        startDownloadData()
+    }
 
 }
