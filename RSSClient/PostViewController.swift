@@ -49,7 +49,6 @@ class PostViewController: UIViewController {
         guard let r = reachability else { return }
         if r.isReachable  {
             if data == nil {
-                print("Download")
                 startDownloadData()
             }
         } else {
@@ -131,7 +130,7 @@ extension PostViewController: PostViewDataSource {
     }
     
     func getDate(number: Int) -> String {
-        return data?[number].postDate ?? ""
+        return RegularPostChange().getDatePost(date: data?[number].postDate ?? "")
     }
     
     func getDescrip(number: Int) -> String {

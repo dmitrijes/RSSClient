@@ -151,3 +151,5 @@ class Reachability: NSObject {
     }
     
 }
+
+//https://www.invasivecode.com/weblog/network-reachability-in-swift/?doing_wp_cron=1501502138.1966960430145263671875
