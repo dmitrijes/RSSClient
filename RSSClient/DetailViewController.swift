@@ -29,7 +29,7 @@ extension DetailViewController: DetailViewDataSource {
     }
     
     func getDate() -> String {
-        return post.postDate ?? ""
+        return DateFormat().getDatePost(date: post.postDate ?? "")
     }
     
     func getImage() -> UIImage? {
