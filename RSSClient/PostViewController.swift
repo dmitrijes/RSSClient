@@ -130,7 +130,7 @@ extension PostViewController: PostViewDataSource {
     }
     
     func getDate(number: Int) -> String {
-        return RegularPostChange().getDatePost(date: data?[number].postDate ?? "")
+        return DateFormat().getDatePost(date: data?[number].postDate ?? "")
     }
     
     func getDescrip(number: Int) -> String {
