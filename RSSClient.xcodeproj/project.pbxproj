@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		681851E31F3B38F300BC1B52 /* appModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 681851E11F3B38F300BC1B52 /* appModel.xcdatamodeld */; };
+		681851E51F3B39A000BC1B52 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681851E41F3B39A000BC1B52 /* CoreDataManager.swift */; };
 		682700AE1EEFDED700B8FA85 /* PostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682700AD1EEFDED700B8FA85 /* PostViewCell.swift */; };
 		9307486B1F220E5300FCC4E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9307486A1F220E5300FCC4E3 /* Main.storyboard */; };
 		930924881F21F21600E299D1 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930924871F21F21600E299D1 /* DetailView.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		681851E21F3B38F300BC1B52 /* appModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = appModel.xcdatamodel; sourceTree = "<group>"; };
+		681851E41F3B39A000BC1B52 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		682700AD1EEFDED700B8FA85 /* PostViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewCell.swift; sourceTree = "<group>"; };
 		9307486A1F220E5300FCC4E3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		930924871F21F21600E299D1 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -103,10 +107,12 @@
 				93F92A561EE6C1A200E5D320 /* Download Data */,
 				93E462721EBB568700DD947E /* PostViewController.swift */,
 				9313EC311F1CD332004E35B1 /* DetailViewController.swift */,
+				681851E41F3B39A000BC1B52 /* CoreDataManager.swift */,
 				9307486A1F220E5300FCC4E3 /* Main.storyboard */,
 				93EE2B171EC33D3300635BCC /* Posts.swift */,
 				93F92A591EE6C60600E5D320 /* View */,
 				93D584BF1F2F57590084736B /* Reachability.swift */,
+				681851E11F3B38F300BC1B52 /* appModel.xcdatamodeld */,
 			);
 			path = RSSClient;
 			sourceTree = "<group>";
@@ -259,10 +265,12 @@
 				93F5A3501F1397370010B90D /* ImageLoaderService.swift in Sources */,
 				930924881F21F21600E299D1 /* DetailView.swift in Sources */,
 				93D584C01F2F57590084736B /* Reachability.swift in Sources */,
+				681851E51F3B39A000BC1B52 /* CoreDataManager.swift in Sources */,
 				93F92A551EE6C18300E5D320 /* PostsView.swift in Sources */,
 				93E462731EBB568700DD947E /* PostViewController.swift in Sources */,
 				93EE2B141EC31A7700635BCC /* DownloadDataService.swift in Sources */,
 				938B540F1F3350A9002F677D /* DateFormat.swift in Sources */,
+				681851E31F3B38F300BC1B52 /* appModel.xcdatamodeld in Sources */,
 				93EE2B181EC33D3300635BCC /* Posts.swift in Sources */,
 				93E462711EBB568700DD947E /* AppDelegate.swift in Sources */,
 				93DAFD5C1EC4A7A600A47C7D /* RegularPostChange.swift in Sources */,
@@ -480,6 +488,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		681851E11F3B38F300BC1B52 /* appModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				681851E21F3B38F300BC1B52 /* appModel.xcdatamodel */,
+			);
+			currentVersion = 681851E21F3B38F300BC1B52 /* appModel.xcdatamodel */;
+			name = appModel.xcdatamodeld;
+			path = ../appModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 93E462651EBB568700DD947E /* Project object */;
 }
