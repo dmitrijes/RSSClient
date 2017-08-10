@@ -43,7 +43,7 @@ class CoreDataManager {
         return coordinator
     }()
     
-    lazy var managedObjectMainContext: NSManagedObjectContext = {
+    lazy var managedObjectContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
@@ -57,10 +57,10 @@ class CoreDataManager {
         return managedObjectContext
     }()
     
-    func saveContext(context: NSManagedObjectContext) {
-        if context.hasChanges {
+    func saveContext() {
+        if managedObjectContext.hasChanges {
             do {
-                try context.save()
+                try managedObjectContext.save()
             } catch {
                 let nserror = error as NSError
                 NSLog("Unresolved error \(nserror), \(nserror.userInfo)")

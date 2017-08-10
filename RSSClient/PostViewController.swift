@@ -7,25 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
 class PostViewController: UIViewController {
 
     let imageLoader = ImageLoaderService()
     
-    var data : [Posts]! {
-        didSet {
-             delegate.reloadTable()
-        }
-    }
+    var data: [Posts]?
+    
+    var fetchedResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "News")
+        
+//        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
+
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.instance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
+        
+        return fetchedResultsController
+    }()
     
     var delegate : PostViewDataReload {
         return view as! PostViewDataReload
     }
     
     fileprivate struct Constants {
-        static let macRumosUrl = "http://feeds.macrumors.com/MacRumors-All"
-        static let segueId = "showDetail"
-        static let cantGetData = "Can't get data"
+        static let segueId = "showDetail"        
         static let internetConnection = "No Internet Connection"
     }
     
@@ -34,54 +42,35 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        DataManager().startDownloadData()
+        let q = fetchedResultsController.fetchedObjects
         
-        _ = reachability?.startNotifier()
+
+//        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+//        
+//        _ = reachability?.startNotifier()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        checkReachability()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        checkReachability()
+//    }
+//    
+//    func checkReachability() {
+//        guard let r = reachability else { return }
+//        if r.isReachable  {
+//            if data == nil {
+//                startDownloadData()
+//            }
+//        } else {
+//            showAlert(text: Constants.internetConnection)
+//        }
+//    }
     
-    func checkReachability() {
-        guard let r = reachability else { return }
-        if r.isReachable  {
-            if data == nil {
-                startDownloadData()
-            }
-        } else {
-            showAlert(text: Constants.internetConnection)
-        }
-    }
-    
-    func reachabilityDidChange(_ notification: Notification) {
-        checkReachability()
-    }
-    
-    func startDownloadData() {
-        DownloadDataService().downloadData(url: Constants.macRumosUrl) { [weak self] (posts, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-            guard let result = posts else {
-                self?.showAlert(text: Constants.cantGetData)
-                return
-            }
-            DispatchQueue.main.async {
-                self?.data = result
-            }
-        }
-    }
-    
-    func showAlert(text: String) {
-        let alert = UIAlertController(title: "Sorry", message: text, preferredStyle: UIAlertControllerStyle.alert)
-        let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
+//    func reachabilityDidChange(_ notification: Notification) {
+//        checkReachability()
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueId {
@@ -90,10 +79,10 @@ class PostViewController: UIViewController {
         }
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-        reachability?.stopNotifier()
-    }
+//    deinit {
+//        NotificationCenter.default.removeObserver(self)
+//        reachability?.stopNotifier()
+//    }
     
 }
 
@@ -142,7 +131,15 @@ extension PostViewController: PostViewDataSource {
     }
     
     func checkUpdateData() {
-        startDownloadData()
+        DataManager().startDownloadData()
     }
 
+}
+
+extension PostViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("2")
+    }
+    
 }
