@@ -15,15 +15,15 @@ class PostViewController: UIViewController {
     
     var data: [Posts]?
     
-    var fetchedResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "News")
+    lazy var fetchedResultsController: NSFetchedResultsController<News> = {
+        let fetchRequest = NSFetchRequest<News>(entityName: "News")
         
-//        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
 
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.instance.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.instance.managedObjectMainContext, sectionNameKeyPath: nil, cacheName: nil)
         
-        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
+        fetchedResultsController.delegate = self
         
         return fetchedResultsController
     }()
@@ -37,14 +37,18 @@ class PostViewController: UIViewController {
         static let internetConnection = "No Internet Connection"
     }
     
-    var reachability: Reachability? = Reachability.networkReachabilityForInternetConnection()
+    //var reachability: Reachability? = Reachability.networkReachabilityForInternetConnection()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         DataManager().startDownloadData()
-        let q = fetchedResultsController.fetchedObjects
         
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Error")
+        }
 
 //        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
 //        
@@ -89,42 +93,44 @@ class PostViewController: UIViewController {
 extension PostViewController: PostViewDataSource {
     
     var count: Int {
-        return data?.count ?? 0
+        return 20
     }
     
-    func getTitle(number: Int) -> String {
-        return data?[number].postTitle ?? ""
+    func getTitle(indexAt: IndexPath) -> String {
+        //return fetchedResultsController.object(at: indexAt).title ?? ""
+        
+        return " "
     }
     
-    func getImage(number: Int) -> UIImage? {
-        if let urlString = data?[number].postImage, let imageUrl = URL(string: urlString) {
-            if let image = imageLoader.tryGetImageFromCache(url: imageUrl) {
-                return image
-            }
-            imageLoad(imageUrl: imageUrl, number: number)
-            
-        }
-        return nil
-    }
-    
-    func imageLoad(imageUrl: URL, number: Int) {
-        imageLoader.loadImage(imageUrl: imageUrl, callback: { [weak self] (result, error) in
-            guard let image = result else {
-                return
-            }
-            DispatchQueue.main.async {
-                self?.delegate.updateImageCell(number: number, image: image)
-            }
-        })
-    }
-    
-    func getDate(number: Int) -> String {
-        return DateFormat().getDatePost(date: data?[number].postDate ?? "")
-    }
-    
-    func getDescrip(number: Int) -> String {
-        return data?[number].postDescrip ?? ""
-    }
+//    func getImage(indexAt: IndexPath) -> UIImage? {
+//        if let urlString = data?[number].postImage, let imageUrl = URL(string: urlString) {
+//            if let image = imageLoader.tryGetImageFromCache(url: imageUrl) {
+//                return image
+//            }
+//            imageLoad(imageUrl: imageUrl, number: number)
+//            
+//        }
+//        return nil
+//    }
+//    
+//    func imageLoad(imageUrl: URL, number: Int) {
+//        imageLoader.loadImage(imageUrl: imageUrl, callback: { [weak self] (result, error) in
+//            guard let image = result else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self?.delegate.updateImageCell(number: number, image: image)
+//            }
+//        })
+//    }
+//    
+//    func getDate(indexAt: IndexPath) -> String {
+//        return DateFormat().getDatePost(date: data?[number].postDate ?? "")
+//    }
+//    
+//    func getDescrip(indexAt: IndexPath) -> String {
+//        return data?[number].postDescrip ?? ""
+//    }
     
     func passIndexSelectedCell(index: Int) {
         performSegue(withIdentifier: Constants.segueId, sender: index)
@@ -138,8 +144,8 @@ extension PostViewController: PostViewDataSource {
 
 extension PostViewController: NSFetchedResultsControllerDelegate {
     
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("2")
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print(fetchedResultsController.fetchedObjects)
+        delegate.reloadTable()
     }
-    
 }

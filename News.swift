@@ -12,12 +12,14 @@ import CoreData
 @objc(News)
 public class News: NSManagedObject {
 
-    convenience init() {
-        let entity = NSEntityDescription.entity(forEntityName: "News", in: CoreDataManager.instance.managedObjectPrivateContext)
+    convenience init(context: NSManagedObjectContext) {
+        let entity = NSEntityDescription.entity(forEntityName: "News", in: context)
         
         // Создание нового объекта
-        self.init(entity: entity!, insertInto: CoreDataManager.instance.managedObjectPrivateContext)
+        self.init(entity: entity!, insertInto: context)
+        
     }
+    
     
     
 }

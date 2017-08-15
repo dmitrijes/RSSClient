@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import CoreData
 
 
 class DownloadDataService {
     
-    func downloadData(url: String, complition: @escaping ([Posts]?, Error?) -> Void) {
+    func downloadData(url: String, complition: @escaping (Bool, Error?) -> Void) {
         
         let newUrl = URL(string: url)
         let urlReq = URLRequest(url: newUrl!)
@@ -19,13 +20,33 @@ class DownloadDataService {
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: urlReq) { (data, _, error) in
             guard let newData = data else {
-                complition(nil, error)
+                complition(false, error)
                 return
                 }
-                let posts = DataParse().parsingDataStart(newData)
-            complition(posts, nil)
+            let posts = DataParse().parsingDataStart(newData)
+            CoreDataManager.instance.managedObjectPrivateContext.perform {
+                for post in posts {
+                    let news = News(context: CoreDataManager.instance.managedObjectPrivateContext)
+                    news.title = post.postTitle
+                    news.date = post.postDate
+                    news.descrip = post.postDescrip
+                    news.imageUrl = post.postImage
+                }
+            }
+            CoreDataManager.instance.saveContext(context: CoreDataManager.instance.managedObjectPrivateContext)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.managedObjectContextDidSave(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: CoreDataManager.instance.managedObjectPrivateContext)
+            NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidSave, object: CoreDataManager.instance.managedObjectPrivateContext)
+            complition(true, nil)
+            
         }
         task.resume()
+    }
+    
+    @objc func managedObjectContextDidSave(_ notification: Notification) {
+        CoreDataManager.instance.managedObjectMainContext.performAndWait {
+            CoreDataManager.instance.managedObjectMainContext.mergeChanges(fromContextDidSave: notification)
+        }
+        
     }
 }
 

@@ -49,10 +49,10 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellId, for: indexPath) as! PostViewCell
         
-        cell.postTitle.text = dataSource.getTitle(number: indexPath.row)
-        cell.postDate.text = dataSource.getDate(number: indexPath.row)
-        cell.postDescrip.text = dataSource.getDescrip(number: indexPath.row)
-        cell.postImage.image = dataSource.getImage(number: indexPath.row) ?? #imageLiteral(resourceName: "imagePlaceHolder")
+        cell.postTitle.text = dataSource.getTitle(indexAt: indexPath)
+//        cell.postDate.text = dataSource.getDate(indexAt: indexPath)
+//        cell.postDescrip.text = dataSource.getDescrip(indexAt: indexPath)
+//        cell.postImage.image = dataSource.getImage(indexAt: indexPath) ?? #imageLiteral(resourceName: "imagePlaceHolder")
     
         return cell
     }
@@ -86,10 +86,10 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
 protocol PostViewDataSource {
     
     var count: Int { get }
-    func getTitle(number: Int) -> String
-    func getImage(number: Int) -> UIImage?
-    func getDate(number: Int) -> String
-    func getDescrip(number: Int) -> String
+    func getTitle(indexAt: IndexPath) -> String
+//    func getImage(indexAt: IndexPath) -> UIImage?
+//    func getDate(indexAt: IndexPath) -> String
+//    func getDescrip(indexAt: IndexPath) -> String
     func passIndexSelectedCell(index: Int)
     func checkUpdateData()
     
