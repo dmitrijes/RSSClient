@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-class DownloadDataService: NSObject {
+class DownloadDataService {
     
     func downloadData(url: String, complition: @escaping (Bool, Error?) -> Void) {
         
@@ -18,7 +18,6 @@ class DownloadDataService: NSObject {
         let urlReq = URLRequest(url: newUrl!)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave(notification: )), name: NSNotification.Name.NSManagedObjectContextDidSave, object: CoreDataManager.instance.managedObjectPrivateContext)
         let task = session.dataTask(with: urlReq) { (data, _, error) in
             guard let newData = data else {
                 complition(false, error)
@@ -32,19 +31,13 @@ class DownloadDataService: NSObject {
                     news.date = post.postDate
                     news.descrip = post.postDescrip
                     news.imageUrl = post.postImage
+                    
                 }
+                CoreDataManager.instance.saveContext(context: CoreDataManager.instance.managedObjectPrivateContext)
             }
-            CoreDataManager.instance.saveContext(context: CoreDataManager.instance.managedObjectPrivateContext)
             complition(true, nil)
             
         }
         task.resume()
     }
-    
-    func managedObjectContextDidSave(notification: Notification) {
-        print("qqq")
-        CoreDataManager.instance.managedObjectMainContext.mergeChanges(fromContextDidSave: notification)
-        print("www")
-    }
-    
 }

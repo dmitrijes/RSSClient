@@ -13,7 +13,11 @@ class CoreDataManager {
     
     static let instance = CoreDataManager()
     
-    private init() {}
+    private init() {
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave(notification: )), name: NSNotification.Name.NSManagedObjectContextDidSave, object: managedObjectPrivateContext)
+        
+    }
     
     lazy var applicationDocumentsDirectory: URL = {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -67,6 +71,10 @@ class CoreDataManager {
                 abort()
             }
         }
+    }
+    
+    @objc func managedObjectContextDidSave(notification: Notification) {
+        managedObjectMainContext.mergeChanges(fromContextDidSave: notification)
     }
     
     

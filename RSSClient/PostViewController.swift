@@ -96,44 +96,47 @@ class PostViewController: UIViewController {
 extension PostViewController: PostViewDataSource {
     
     var count: Int {
-        return 20
+        if let result = fetchedResultsController.fetchedObjects {
+            return result.count
+        }
+        return 0
     }
     
     func getTitle(indexAt: IndexPath) -> String {
-        //return fetchedResultsController.object(at: indexAt).title ?? ""
+        return fetchedResultsController.object(at: indexAt).title ?? ""
         
-        return " "
+        //return " "
     }
     
-//    func getImage(indexAt: IndexPath) -> UIImage? {
-//        if let urlString = data?[number].postImage, let imageUrl = URL(string: urlString) {
-//            if let image = imageLoader.tryGetImageFromCache(url: imageUrl) {
-//                return image
-//            }
-//            imageLoad(imageUrl: imageUrl, number: number)
-//            
-//        }
-//        return nil
-//    }
-//    
-//    func imageLoad(imageUrl: URL, number: Int) {
-//        imageLoader.loadImage(imageUrl: imageUrl, callback: { [weak self] (result, error) in
-//            guard let image = result else {
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                self?.delegate.updateImageCell(number: number, image: image)
-//            }
-//        })
-//    }
-//    
-//    func getDate(indexAt: IndexPath) -> String {
-//        return DateFormat().getDatePost(date: data?[number].postDate ?? "")
-//    }
-//    
-//    func getDescrip(indexAt: IndexPath) -> String {
-//        return data?[number].postDescrip ?? ""
-//    }
+    func getImage(indexAt: IndexPath) -> UIImage? {
+        if let urlString = fetchedResultsController.object(at: indexAt).imageUrl, let imageUrl = URL(string: urlString) {
+            if let image = imageLoader.tryGetImageFromCache(url: imageUrl) {
+                return image
+            }
+            imageLoad(imageUrl: imageUrl, number: indexAt.row)
+            
+        }
+        return nil
+    }
+    
+    func imageLoad(imageUrl: URL, number: Int) {
+        imageLoader.loadImage(imageUrl: imageUrl, callback: { [weak self] (result, error) in
+            guard let image = result else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.delegate.updateImageCell(number: number, image: image)
+            }
+        })
+    }
+
+    func getDate(indexAt: IndexPath) -> String {
+        return DateFormat().getDatePost(date: fetchedResultsController.object(at: indexAt).date ?? "")
+    }
+
+    func getDescrip(indexAt: IndexPath) -> String {
+        return fetchedResultsController.object(at: indexAt).descrip ?? ""
+    }
     
     func passIndexSelectedCell(index: Int) {
         performSegue(withIdentifier: Constants.segueId, sender: index)
@@ -148,7 +151,7 @@ extension PostViewController: PostViewDataSource {
 extension PostViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print(fetchedResultsController.fetchedObjects)
+        print(fetchedResultsController.fetchedObjects?.count ?? " ")
         delegate.reloadTable()
     }
 }
