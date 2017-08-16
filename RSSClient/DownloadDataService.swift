@@ -35,7 +35,6 @@ class DownloadDataService: NSObject {
                 }
             }
             CoreDataManager.instance.saveContext(context: CoreDataManager.instance.managedObjectPrivateContext)
-            NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidSave, object: CoreDataManager.instance.managedObjectPrivateContext)
             complition(true, nil)
             
         }
