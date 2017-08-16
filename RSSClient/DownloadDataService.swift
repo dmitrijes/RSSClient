@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-class DownloadDataService {
+class DownloadDataService: NSObject {
     
     func downloadData(url: String, complition: @escaping (Bool, Error?) -> Void) {
         
@@ -18,6 +18,7 @@ class DownloadDataService {
         let urlReq = URLRequest(url: newUrl!)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave(notification: )), name: NSNotification.Name.NSManagedObjectContextDidSave, object: CoreDataManager.instance.managedObjectPrivateContext)
         let task = session.dataTask(with: urlReq) { (data, _, error) in
             guard let newData = data else {
                 complition(false, error)
@@ -34,7 +35,6 @@ class DownloadDataService {
                 }
             }
             CoreDataManager.instance.saveContext(context: CoreDataManager.instance.managedObjectPrivateContext)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.managedObjectContextDidSave(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: CoreDataManager.instance.managedObjectPrivateContext)
             NotificationCenter.default.post(name: NSNotification.Name.NSManagedObjectContextDidSave, object: CoreDataManager.instance.managedObjectPrivateContext)
             complition(true, nil)
             
@@ -42,12 +42,10 @@ class DownloadDataService {
         task.resume()
     }
     
-    @objc func managedObjectContextDidSave(_ notification: Notification) {
-        CoreDataManager.instance.managedObjectMainContext.performAndWait {
-            CoreDataManager.instance.managedObjectMainContext.mergeChanges(fromContextDidSave: notification)
-        }
-        
+    func managedObjectContextDidSave(notification: Notification) {
+        print("qqq")
+        CoreDataManager.instance.managedObjectMainContext.mergeChanges(fromContextDidSave: notification)
+        print("www")
     }
+    
 }
-
-

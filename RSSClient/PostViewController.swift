@@ -44,6 +44,7 @@ class PostViewController: UIViewController {
         
         DataManager().startDownloadData()
         
+        
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -82,6 +83,8 @@ class PostViewController: UIViewController {
             showDetail.post = data?[sender as! Int]
         }
     }
+    
+    
     
 //    deinit {
 //        NotificationCenter.default.removeObserver(self)
