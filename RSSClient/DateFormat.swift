@@ -12,6 +12,10 @@ class DateFormat {
     
     let dateForm = DateFormatter()
     
+    var currentDate: Date {
+        return Date()
+    }
+    
     func convertStringToDate(date: String) -> Date {
         dateForm.timeZone = TimeZone(abbreviation: "GMT")
         dateForm.dateFormat = "EEE. dd MMM yyyy HH:mm:ss zzz"
@@ -20,7 +24,6 @@ class DateFormat {
     }
     
     func getDatePost(date: Date) -> String {
-        let currentDate = Date()
         var diff = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: date, to:currentDate)
         if diff.minute! < 60, diff.hour! == 0, diff.day! == 0 {
             return "\(diff.minute!) minutes ago"
@@ -39,6 +42,14 @@ class DateFormat {
             return dateForm.string(from: newDate!)
         }
     }
-
     
+    func lastDownloadMoreThanAnHour() -> Bool {
+        if let lastUpdate = UserDefaults.standard.object(forKey: "lastUpdate") as? Date {
+            let diff = Calendar.current.dateComponents([.year, .month, .day, .hour], from: lastUpdate, to:currentDate)
+            if diff.hour! > 1 || diff.day! > 1 || diff.month! > 1 || diff.year! > 1 {
+                return true
+            }
+        }
+        return false
+    }
 }

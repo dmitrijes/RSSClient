@@ -14,13 +14,24 @@ class DataManager {
         static let macRumosUrl = "http://feeds.macrumors.com/MacRumors-All"
     }
     
-    func startDownloadNews() {
+    func startDownloadNews(checkUpdate: Bool) {
+        if !checkUpdate {
+            let moreThanAnHour = DateFormat().lastDownloadMoreThanAnHour()
+            if moreThanAnHour {
+                start()
+            }
+        } else {
+            start()
+        }
+    }
+    
+    func start() {
         DownloadDataService().downloadNews(url: Constants.macRumosUrl) { (isTrue, error) in
             if let error = error {
                 print(error)
                 return
             }
+            UserDefaults.standard.set(DateFormat().currentDate, forKey: "lastUpdate")
         }
     }
-    
 }

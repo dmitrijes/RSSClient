@@ -41,7 +41,7 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DataManager().startDownloadNews()
+        DataManager().startDownloadNews(checkUpdate: false)
         
         
         do {
@@ -142,7 +142,7 @@ extension PostViewController: PostViewDataSource {
     }
     
     func checkUpdateData() {
-        DataManager().startDownloadNews()
+        DataManager().startDownloadNews(checkUpdate: true)
     }
 
 }
