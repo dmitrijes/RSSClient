@@ -73,6 +73,18 @@ class CoreDataManager {
         }
     }
     
+    func deleteAllObects() {
+        let fetchRequest = NSFetchRequest<News>(entityName: "News")
+        do {
+            let result = try managedObjectPrivateContext.fetch(fetchRequest)
+            for res in result {
+                managedObjectPrivateContext.delete(res)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     @objc func managedObjectContextDidSave(notification: Notification) {
         managedObjectMainContext.mergeChanges(fromContextDidSave: notification)
     }

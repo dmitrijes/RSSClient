@@ -73,7 +73,7 @@ class PostsView: UIView, UITableViewDataSource, UITableViewDelegate, PostViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dataSource.passIndexSelectedCell(index: indexPath.row)
+        dataSource.passIndexSelectedCell(indexAt: indexPath)
     }
     
     func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -90,7 +90,7 @@ protocol PostViewDataSource {
     func getImage(indexAt: IndexPath) -> UIImage?
     func getDate(indexAt: IndexPath) -> String
     func getDescrip(indexAt: IndexPath) -> String
-    func passIndexSelectedCell(index: Int)
+    func passIndexSelectedCell(indexAt: IndexPath)
     func checkUpdateData()
     
 }

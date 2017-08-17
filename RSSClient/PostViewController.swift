@@ -13,12 +13,10 @@ class PostViewController: UIViewController {
 
     let imageLoader = ImageLoaderService()
     
-    var data: [Posts]?
-    
     lazy var fetchedResultsController: NSFetchedResultsController<News> = {
         let fetchRequest = NSFetchRequest<News>(entityName: "News")
         
-        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.instance.managedObjectMainContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -35,6 +33,7 @@ class PostViewController: UIViewController {
     fileprivate struct Constants {
         static let segueId = "showDetail"        
         static let internetConnection = "No Internet Connection"
+        static let cantGetData = "Can't get data"
     }
     
     //var reachability: Reachability? = Reachability.networkReachabilityForInternetConnection()
@@ -42,7 +41,7 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DataManager().startDownloadData()
+        DataManager().startDownloadNews()
         
         
         do {
@@ -80,7 +79,7 @@ class PostViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueId {
             let showDetail = segue.destination as! DetailViewController
-            showDetail.post = data?[sender as! Int]
+            showDetail.news = fetchedResultsController.object(at: sender as! IndexPath)
         }
     }
     
@@ -131,19 +130,19 @@ extension PostViewController: PostViewDataSource {
     }
 
     func getDate(indexAt: IndexPath) -> String {
-        return DateFormat().getDatePost(date: fetchedResultsController.object(at: indexAt).date ?? "")
+        return DateFormat().getDatePost(date: fetchedResultsController.object(at: indexAt).date!)
     }
 
     func getDescrip(indexAt: IndexPath) -> String {
         return fetchedResultsController.object(at: indexAt).descrip ?? ""
     }
     
-    func passIndexSelectedCell(index: Int) {
-        performSegue(withIdentifier: Constants.segueId, sender: index)
+    func passIndexSelectedCell(indexAt: IndexPath) {
+        performSegue(withIdentifier: Constants.segueId, sender: indexAt)
     }
     
     func checkUpdateData() {
-        DataManager().startDownloadData()
+        DataManager().startDownloadNews()
     }
 
 }
@@ -151,7 +150,6 @@ extension PostViewController: PostViewDataSource {
 extension PostViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print(fetchedResultsController.fetchedObjects?.count ?? " ")
         delegate.reloadTable()
     }
 }

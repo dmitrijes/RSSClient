@@ -14,8 +14,8 @@ class DataParse: NSObject, XMLParserDelegate {
     var prevName : String!
     var foundCharacters = ""
     var fir = false
-    var posts : [Posts] = []
-    var post : Posts!
+    var arrayNews : [News] = []
+    var singleNews : News!
     
     struct Constants {
         
@@ -26,30 +26,30 @@ class DataParse: NSObject, XMLParserDelegate {
         
     }
     
-    func parsingDataStart(_ data: Data) -> [Posts] {
+    func parsingDataStart(_ data: Data) -> [News] {
         let parser = XMLParser(data: data)
         parser.delegate = self
         parser.parse()
-        return posts
+        return arrayNews
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == Constants.item {
-            post = Posts()
+            singleNews = News(context: CoreDataManager.instance.managedObjectPrivateContext)
         }
         eName = elementName
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if post != nil {
+        if singleNews != nil {
             switch (elementName) {
-            case Constants.title: post.postTitle = foundCharacters
-            case Constants.pubDate: post.postDate = foundCharacters
+            case Constants.title: singleNews.title = foundCharacters
+            case Constants.pubDate: singleNews.date = DateFormat().convertStringToDate(date: foundCharacters)
             case Constants.description:
                 let result = RegularPostChange().changeText(text: foundCharacters)
-                post.postDescrip = result[0]
-                post.postImage = result[1]
-                posts.append(post)
+                singleNews.descrip = result[0]
+                singleNews.imageUrl = result[1]
+                arrayNews.append(singleNews)
             default: break
             }
         }

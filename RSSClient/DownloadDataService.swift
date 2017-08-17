@@ -12,7 +12,7 @@ import CoreData
 
 class DownloadDataService {
     
-    func downloadData(url: String, complition: @escaping (Bool, Error?) -> Void) {
+    func downloadNews(url: String, complition: @escaping (Bool, Error?) -> Void) {
         
         let newUrl = URL(string: url)
         let urlReq = URLRequest(url: newUrl!)
@@ -23,18 +23,9 @@ class DownloadDataService {
                 complition(false, error)
                 return
                 }
-            let posts = DataParse().parsingDataStart(newData)
-            CoreDataManager.instance.managedObjectPrivateContext.perform {
-                for post in posts {
-                    let news = News(context: CoreDataManager.instance.managedObjectPrivateContext)
-                    news.title = post.postTitle
-                    news.date = post.postDate
-                    news.descrip = post.postDescrip
-                    news.imageUrl = post.postImage
-                    
-                }
-                CoreDataManager.instance.saveContext(context: CoreDataManager.instance.managedObjectPrivateContext)
-            }
+            CoreDataManager.instance.deleteAllObects()
+            _ = DataParse().parsingDataStart(newData)
+            CoreDataManager.instance.saveContext(context: CoreDataManager.instance.managedObjectPrivateContext)
             complition(true, nil)
             
         }

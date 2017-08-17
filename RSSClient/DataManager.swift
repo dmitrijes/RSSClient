@@ -12,15 +12,15 @@ class DataManager {
     
     fileprivate struct Constants {
         static let macRumosUrl = "http://feeds.macrumors.com/MacRumors-All"
-        static let cantGetData = "Can't get data"
     }
     
-    func startDownloadData() {
-        DownloadDataService().downloadData(url: Constants.macRumosUrl) { (isTrue, error) in
+    func startDownloadNews() {
+        DownloadDataService().downloadNews(url: Constants.macRumosUrl) { (isTrue, error) in
             if let error = error {
                 print(error)
                 return
             }
         }
     }
+    
 }

@@ -16,7 +16,7 @@ extension News {
         return NSFetchRequest<News>(entityName: "News")
     }
 
-    @NSManaged public var date: String?
+    @NSManaged public var date: Date?
     @NSManaged public var descrip: String?
     @NSManaged public var imageUrl: String?
     @NSManaged public var title: String?
