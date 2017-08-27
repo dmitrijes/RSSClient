@@ -15,10 +15,9 @@ class DownloadDataService {
     func downloadNews(url: String, complition: @escaping (Bool, Error?) -> Void) {
         
         let newUrl = URL(string: url)
-        let urlReq = URLRequest(url: newUrl!)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        let task = session.dataTask(with: urlReq) { (data, _, error) in
+        let task = session.dataTask(with: newUrl!) { (data, _, error) in
             guard let newData = data else {
                 complition(false, error)
                 return

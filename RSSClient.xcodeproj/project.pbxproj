@@ -94,15 +94,6 @@
 			name = "Core Data";
 			sourceTree = "<group>";
 		};
-		6866A29B1F459BE700A0342A /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				93E462721EBB568700DD947E /* PostViewController.swift */,
-				9313EC311F1CD332004E35B1 /* DetailViewController.swift */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
 		6866A29C1F459C0F00A0342A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +101,49 @@
 				68C226AE1F3C53A0000EC9BD /* News+CoreDataProperties.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		6884ABE91F5327A500DAB86C /* PostVC */ = {
+			isa = PBXGroup;
+			children = (
+				93E462721EBB568700DD947E /* PostViewController.swift */,
+				93F92A541EE6C18300E5D320 /* PostsView.swift */,
+				682700AD1EEFDED700B8FA85 /* PostViewCell.swift */,
+			);
+			name = PostVC;
+			sourceTree = "<group>";
+		};
+		6884ABEA1F5327CC00DAB86C /* DetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				930924871F21F21600E299D1 /* DetailView.swift */,
+				9313EC311F1CD332004E35B1 /* DetailViewController.swift */,
+			);
+			name = DetailVC;
+			sourceTree = "<group>";
+		};
+		6884ABEB1F5327F500DAB86C /* Regular */ = {
+			isa = PBXGroup;
+			children = (
+				93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */,
+			);
+			name = Regular;
+			sourceTree = "<group>";
+		};
+		6884ABEC1F53280100DAB86C /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				938B540E1F3350A9002F677D /* DateFormat.swift */,
+			);
+			name = Date;
+			sourceTree = "<group>";
+		};
+		6884ABED1F53280700DAB86C /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				93EE2B151EC3379400635BCC /* DataParse.swift */,
+			);
+			name = Parsing;
 			sourceTree = "<group>";
 		};
 		93E462641EBB568700DD947E = {
@@ -137,8 +171,12 @@
 				6866A29A1F459BA300A0342A /* Core Data */,
 				93F92A561EE6C1A200E5D320 /* Download Data */,
 				9307486A1F220E5300FCC4E3 /* Main.storyboard */,
-				6866A29B1F459BE700A0342A /* Controllers */,
-				93F92A591EE6C60600E5D320 /* View */,
+				6884ABED1F53280700DAB86C /* Parsing */,
+				6884ABEC1F53280100DAB86C /* Date */,
+				6884ABEB1F5327F500DAB86C /* Regular */,
+				681851E61F3B439C00BC1B52 /* DataManager.swift */,
+				6884ABE91F5327A500DAB86C /* PostVC */,
+				6884ABEA1F5327CC00DAB86C /* DetailVC */,
 				6866A29C1F459C0F00A0342A /* Model */,
 				93D584BF1F2F57590084736B /* Reachability.swift */,
 				681851E11F3B38F300BC1B52 /* appModel.xcdatamodeld */,
@@ -169,24 +207,10 @@
 		93F92A561EE6C1A200E5D320 /* Download Data */ = {
 			isa = PBXGroup;
 			children = (
-				681851E61F3B439C00BC1B52 /* DataManager.swift */,
 				93EE2B131EC31A7700635BCC /* DownloadDataService.swift */,
-				93EE2B151EC3379400635BCC /* DataParse.swift */,
-				93DAFD5B1EC4A7A600A47C7D /* RegularPostChange.swift */,
 				93F5A34F1F1397370010B90D /* ImageLoaderService.swift */,
-				938B540E1F3350A9002F677D /* DateFormat.swift */,
 			);
 			name = "Download Data";
-			sourceTree = "<group>";
-		};
-		93F92A591EE6C60600E5D320 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				93F92A541EE6C18300E5D320 /* PostsView.swift */,
-				682700AD1EEFDED700B8FA85 /* PostViewCell.swift */,
-				930924871F21F21600E299D1 /* DetailView.swift */,
-			);
-			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
