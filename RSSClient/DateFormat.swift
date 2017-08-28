@@ -37,19 +37,10 @@ class DateFormat {
         } else if diff.day! == 1 {
             return "Yesterday"
         } else {
-            let newDate = Calendar.current.date(from: diff)
+            let newDate = date
             dateForm.dateStyle = .short
-            return dateForm.string(from: newDate!)
+            return dateForm.string(from: newDate)
         }
     }
     
-    func lastDownloadMoreThanAnHour() -> Bool {
-        if let lastUpdate = UserDefaults.standard.object(forKey: "lastUpdate") as? Date {
-            let diff = Calendar.current.dateComponents([.year, .month, .day, .hour], from: lastUpdate, to:currentDate)
-            if diff.hour! > 1 || diff.day! > 1 || diff.month! > 1 || diff.year! > 1 {
-                return true
-            }
-        }
-        return false
-    }
 }

@@ -36,45 +36,40 @@ class PostViewController: UIViewController {
         static let cantGetData = "Can't get data"
     }
     
-    //var reachability: Reachability? = Reachability.networkReachabilityForInternetConnection()
+    var reachability: Reachability? = Reachability.networkReachabilityForInternetConnection()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
         
-        DataManager().startDownloadNews(checkUpdate: false)
-        
+        _ = reachability?.startNotifier()
         
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print("Error")
         }
-
-//        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityDidChange(_:)), name: NSNotification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-//        
-//        _ = reachability?.startNotifier()
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        checkReachability()
-//    }
-//    
-//    func checkReachability() {
-//        guard let r = reachability else { return }
-//        if r.isReachable  {
-//            if data == nil {
-//                startDownloadData()
-//            }
-//        } else {
-//            showAlert(text: Constants.internetConnection)
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkReachability()
+    }
     
-//    func reachabilityDidChange(_ notification: Notification) {
-//        checkReachability()
-//    }
+    func checkReachability() {
+        guard let r = reachability else { return }
+        if r.isReachable  {
+            DataManager().startDownloadNews(checkUpdate: true)
+        } else {
+            showAlert(text: Constants.internetConnection)
+        }
+    }
+    
+    func reachabilityDidChange(_ notification: Notification) {
+        checkReachability()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueId {
@@ -83,12 +78,17 @@ class PostViewController: UIViewController {
         }
     }
     
+    func showAlert(text: String) {
+        let alert = UIAlertController(title: "Sorry", message: text, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
     
-    
-//    deinit {
-//        NotificationCenter.default.removeObserver(self)
-//        reachability?.stopNotifier()
-//    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        reachability?.stopNotifier()
+    }
     
 }
 
