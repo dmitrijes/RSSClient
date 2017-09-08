@@ -61,7 +61,7 @@ class PostViewController: UIViewController {
     func checkReachability() {
         guard let r = reachability else { return }
         if r.isReachable  {
-            DataManager().startDownloadNews(checkUpdate: true)
+            DataManager().startDownloadNews(checkUpdate: false)
         } else {
             showAlert(text: Constants.internetConnection)
         }

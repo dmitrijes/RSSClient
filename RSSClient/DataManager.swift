@@ -15,14 +15,14 @@ class DataManager {
     }
     
     func startDownloadNews(checkUpdate: Bool) {
-//        if !checkUpdate {
-//            let moreThanAnHour = lastDownloadMoreThanAnHour()
-//            if moreThanAnHour {
-//                start()
-//            }
-//        } else {
+        if !checkUpdate {
+            let moreThanAnHour = lastDownloadTimeDiff()
+            if moreThanAnHour {
+                start()
+            }
+        } else {
             start()
-       // }
+        }
     }
     
     func start() {
@@ -35,13 +35,15 @@ class DataManager {
         }
     }
     
-//    func lastDownloadMoreThanAnHour() -> Bool {
-//        if let lastUpdate = UserDefaults.standard.object(forKey: "lastUpdate") as? Date {
-//            let diff = Calendar.current.dateComponents([.year, .month, .day, .hour], from: lastUpdate, to:currentDate)
-//            if diff.hour! > 1 || diff.day! > 1 || diff.month! > 1 || diff.year! > 1 {
-//                return true
-//            }
-//        }
-//        return false
-//    }
+    func lastDownloadTimeDiff() -> Bool {
+        if let lastUpdate = UserDefaults.standard.object(forKey: "lastUpdate") as? Date {
+            let lastUpdateInterval = lastUpdate.timeIntervalSince1970
+            let currentInterval2 = DateFormat().currentDate.timeIntervalSince1970
+            let diff = (currentInterval2 - lastUpdateInterval)/60
+            if diff > 60 {
+                return true
+            }
+        }
+        return false
+    }
 }
